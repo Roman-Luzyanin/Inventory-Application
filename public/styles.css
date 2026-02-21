@@ -1,0 +1,108 @@
+*, *::after, *::before { box-sizing: border-box;}
+
+body {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.app {
+    display: flex;
+    column-gap: 10px;
+}
+
+.panel {
+    width: 30%;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.panelHead {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.panelHead button {
+    cursor: pointer;
+}
+
+.panelBody {
+    border: 1px solid black;
+    padding: 20px 0;
+}
+
+.newCategory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
+
+.category,
+.subCategory {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.subCategory {
+    padding: 0 20px 0 40px;
+}
+
+.category button,
+.category p {
+    cursor: pointer;
+}
+
+.main {
+    border: 1px solid black;
+    width: 70%;
+    padding: 20px;
+}
+
+.addSubCategoryBtn,
+.addItemBtn {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.addSubCategoryBtn div,
+.addItemBtn div {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.subCategories,
+.items {
+    display: flex;
+    column-gap: 10px;
+}
+
+.subCategoryRight,
+.item {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.advertisement {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+
+

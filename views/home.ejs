@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="helper.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Inventory app</h1>
+    <hr />
+    <div class="app">
+        <div class="panel">
+            <div class="panelHead">
+                <h3>Categories</h3>
+                <button class="addCategoryBtn" onclick="addNewCategory()">addCat</button>
+            </div>
+
+            <div class="panelBody">
+                <div class="addCategory" style="display: none;">
+                    <form action="/category" method="post" class="newCategory">
+                        <label for="newCategory">New category</label>
+                        <input type="text" name="newCategory" id="newCategory">
+                        <button type="submit">Add category</button>
+                        <button type="button" onclick="addNewCategory()">cancel</button>
+                    </form>
+                </div>
+                <div class="changeCategory" style="display: none;">
+                    <form  method="post" class="newCategory">
+                        <label for="update">New name</label>
+                        <input type="text" name="name" id="update">
+                        <button type="submit">update</button>
+                        <button type="button" onclick="changeCategory()">cancel</button>
+                    </form>          
+                </div>
+                <div class="categories">
+                    <% categories.forEach(category => { %>
+                        <div class="category">
+                            <form action="/" method="get">
+                                <input type="hidden" name="categoryId" 
+                                    value="<%= currentPath == category.id ? null : category.id %>">       
+                                <button type="submit"><%= category.name %></button>
+                            </form>
+
+                            <button class="changeCategoryBtn" type="button"
+                                    onclick="changeCategory('<%= category.id %>', '<%= category.name %>')">update</button>
+                            
+                            <form action="/delete/category/<%= category.id %>" method="post">
+                                <button type="submit">del</button>
+                            </form>
+                        </div>
+                        <% if (category.id == categoryId) { %>
+                            <% subCategories.forEach(subCategory => { %>
+                                <div class="subCategory">
+                                    <form action="/" method="get">
+                                        <input type="hidden" name="categoryId" value="<%= category.id %>">
+                                        <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
+                                        <button type="submit"><%= subCategory.name %></button>
+                                    </form>
+                                </div>
+                            <% }) %>
+                        <% } %>  
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <% if (itemId && category) { %>
+                <a href="/">HOME</a>>
+                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a>>
+                <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a>>
+                <%= item.name %>
+
+                <%- include('itemDetails', {item, categoryId, subCategoryId}) %>
+
+            <% } else if (subCategoryId && category) { %> 
+                <a href="/">HOME</a>>
+                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a>>
+                <%= subCategory.name %>
+
+                <div class="addItem" style="display: none;">
+                    <form action="/item" method="post" class="newCategory">
+                        <label for="newItem">New item</label>
+                        <input type="text" name="newItem" id="newItem">
+                        <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                        <button type="submit">Add item</button>
+                        <button type="button" onclick="addNewItem()">Cancel</button>
+                    </form>
+                </div>
+
+                <%- include('items', {items, categoryId, subCategoryId}) %>
+
+            <% } else if (categoryId && category) { %>
+                <a href="/">HOME</a>>
+                <%= category.name %>
+
+                <div class="addSubCategory" style="display: none;">
+                    <form action="/subCategory" method="post" class="newCategory">
+                        <label for="newSubCategory">New category</label>
+                        <input type="text" name="newSubCategory" id="newSubCategory">
+                        <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                        <button type="submit">Add category</button>
+                        <button type="button" onclick="addNewSubCategory()">Cancel</button>
+                    </form>
+                </div>
+                
+                <%- include('subCategories', {subCategories, categoryId}) %>   
+
+            <% } else { %>
+                HOME
+                <div class="advertisement"></div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<div class="changeSubCategory" style="display: none;">
+    <form  method="post" class="newCategory">
+        <label for="update">New name</label>
+        <input type="text" name="name" id="update">
+        <input type="hidden" name="parent_id" id="parent_id">
+        <button type="submit">update</button>
+        <button type="button" onclick="changeSubCategory()">cancel</button>
+    </form>          
+</div>
+
+<div class="subCategories">
+    <div class="addSubCategoryBtn">
+        <div>
+            <button type="button" onclick="addNewSubCategory()">add</button>
+        </div>
+    </div>
+    <% subCategories.forEach(subCategory => { %>
+        <div class="subCategoryRight">
+            <form action="/" method="get">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
+                <button type="submit"><%= subCategory.name %></button>
+            </form>
+
+            <button class="changeSubCategoryBtn" type="button"
+                    onclick="changeSubCategory('<%= subCategory.id %>',
+                                                '<%= subCategory.name %>',
+                                                 '<%= subCategory.parent_id %>')">update</button>
+
+            <form action="/delete/subCategory/<%= subCategory.id %>" method="post">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <button type="submit">del</button>
+            </form>
+        </div>
+    <% }) %>
+</div>

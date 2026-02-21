@@ -1,0 +1,27 @@
+<div class="changeItem" style="display: none;">
+    <form action="/update/item/<%= item.id %>" method="post" class="newCategory" enctype="multipart/form-data">
+        <label for="update">New name</label>
+        <input type="text" name="name" id="update" value="<%= item.name %>">
+        <label for="itemImg">Image:</label>
+        <input type="file" name="itemImg" id="itemImg">
+        <input type="hidden" name="categoryId" value="<%= categoryId %>">
+        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+        <input type="hidden" name="itemId" value="<%= itemId %>">
+        <button type="submit">update</button>
+        <button type="button" onclick="changeItem()">cancel</button>
+    </form>          
+</div>
+
+<div class="itemDetails">
+    <form action="/delete/item/<%= item.id %>" method="post">
+        <input type="hidden" name="categoryId" value="<%= categoryId %>">
+        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+        <button type="submit">del</button>
+    </form>
+
+    <button type="button" onclick="changeItem()">update</button>
+
+    <h1><%= item.name %></h1>
+ 
+    <img src="<%= item.image_url %>" alt="">
+</div>

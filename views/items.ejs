@@ -1,0 +1,17 @@
+<div class="items">
+    <div class="addItemBtn">
+        <div>
+            <button type="button" onclick="addNewItem()">add</button>
+        </div>
+    </div>
+    <% items.forEach(item => { %>
+        <div class="item">
+            <form action="/" method="get">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                <input type="hidden" name="itemId" value="<%= item.id %>">
+                <button type="submit"><%= item.name %></button>
+            </form>
+        </div>
+    <% }) %>
+</div>
