@@ -2,7 +2,7 @@ const { Router } = require('express');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: './public/images/items',
+    destination: './public/images',
     filename: (req, file, cb) => {
         cb(null, Date.now() + file.originalname);
     }
@@ -22,7 +22,7 @@ homeRouter.post('/item', controllers.addItem);
 
 homeRouter.post('/update/category/:id', controllers.updateCategory);
 homeRouter.post('/update/subCategory/:id', controllers.updateSubCategory);
-homeRouter.post('/update/item/:id', upload.single('itemImg'), controllers.updateItem);
+homeRouter.post('/update/item/:id', upload.single('image'), controllers.updateItem);
 
 homeRouter.post('/delete/category/:id', controllers.deleteCategory);
 homeRouter.post('/delete/subCategory/:id', controllers.deleteSubCategory);

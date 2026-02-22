@@ -2,8 +2,8 @@
     <form action="/update/item/<%= item.id %>" method="post" class="newCategory" enctype="multipart/form-data">
         <label for="update">New name</label>
         <input type="text" name="name" id="update" value="<%= item.name %>">
-        <label for="itemImg">Image:</label>
-        <input type="file" name="itemImg" id="itemImg">
+        <label for="image">Image:</label>
+        <input type="file" name="image" id="image">
         <input type="hidden" name="categoryId" value="<%= categoryId %>">
         <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
         <input type="hidden" name="itemId" value="<%= itemId %>">

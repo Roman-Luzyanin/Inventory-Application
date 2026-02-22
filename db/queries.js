@@ -1,4 +1,10 @@
-const pool = require('./pool');
+const { Pool} = require('pg');
+const fs = require('fs');
+const path = require('path');
+
+const pool = new Pool({
+    connectionString: `postgresql://roman:grtb342fs@localhost:5432/inventory_app`
+})
 
 async function getCategories() {
     const { rows } = await pool.query('SELECT * FROM categories WHERE parent_id IS NULL ORDER BY id');
@@ -39,6 +45,13 @@ async function deleteCategory(c_id) {
 }
 
 async function deleteItem(i_id) {
+    const { rows } = await pool.query('SELECT image_url FROM items WHERE id = $1', [i_id]);
+    if (typeof(rows[0].image_url) === 'string') {
+        const filePath = path.join(__dirname, '../public', rows[0].image_url);
+        fs.unlink(filePath, (err) => {
+            if (err) console.error('Failed to delete image:', err);
+        })
+    }
     await pool.query('DELETE FROM items WHERE id = $1', [i_id]);
 }
 
