@@ -104,5 +104,26 @@ h1 {
     background-color: red;
 }
 
+.previewImg img {
+    width: 90px;
+    height: 60px;
+}
 
+.previewImg {
+    position: relative;
+    cursor: pointer;
+}
 
+.previewImg::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+}
+
+.active {
+    background-color: red;
+}

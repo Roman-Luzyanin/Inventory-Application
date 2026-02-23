@@ -85,3 +85,11 @@ function changeItem() {
         changeItem.style.display =
             changeItem.style.display === 'none' ? 'block' : 'none';
     }
+
+function removeImg() {
+    const removeImg = document.querySelector('.removeImg');
+    const previewImg = document.querySelector('.previewImg');
+
+    removeImg.value = 'true';
+    previewImg.style.display = 'none';
+}

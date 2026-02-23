@@ -45,7 +45,7 @@ async function updateSubCategory(req, res) {
 
 async function updateItem(req, res) {
     const imagePath = req.file ? `images/${req.file.filename}` : null;
-    await db.updateItem(req.body.name, req.params.id, imagePath);
+    await db.updateItem(req.params.id, req.body.name, imagePath, req.body.removeImg);
     res.redirect(`/?categoryId=${req.body.categoryId}` + 
                     `&subCategoryId=${req.body.subCategoryId}` +
                      `&itemId=${req.body.itemId}`);

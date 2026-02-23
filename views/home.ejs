@@ -40,7 +40,7 @@
                             <form action="/" method="get">
                                 <input type="hidden" name="categoryId" 
                                     value="<%= currentPath == category.id ? null : category.id %>">       
-                                <button type="submit"><%= category.name %></button>
+                                <button type="submit" class="<%= category.id == categoryId ? 'active' : '' %>"><%= category.name %></button>
                             </form>
 
                             <button class="changeCategoryBtn" type="button"
@@ -56,7 +56,7 @@
                                     <form action="/" method="get">
                                         <input type="hidden" name="categoryId" value="<%= category.id %>">
                                         <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
-                                        <button type="submit"><%= subCategory.name %></button>
+                                        <button type="submit" class="<%= subCategory.id == subCategoryId ? 'active' : '' %>"><%= subCategory.name %></button>
                                     </form>
                                 </div>
                             <% }) %>
@@ -68,16 +68,16 @@
 
         <div class="main">
             <% if (itemId && category) { %>
-                <a href="/">HOME</a>>
-                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a>>
-                <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a>>
+                <a href="/">HOME</a> > 
+                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
+                <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a> > 
                 <%= item.name %>
 
                 <%- include('itemDetails', {item, categoryId, subCategoryId}) %>
 
             <% } else if (subCategoryId && category) { %> 
-                <a href="/">HOME</a>>
-                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a>>
+                <a href="/">HOME</a> > 
+                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
                 <%= subCategory.name %>
 
                 <div class="addItem" style="display: none;">
@@ -94,7 +94,7 @@
                 <%- include('items', {items, categoryId, subCategoryId}) %>
 
             <% } else if (categoryId && category) { %>
-                <a href="/">HOME</a>>
+                <a href="/">HOME</a> > 
                 <%= category.name %>
 
                 <div class="addSubCategory" style="display: none;">

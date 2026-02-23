@@ -12,6 +12,12 @@
                 <input type="hidden" name="itemId" value="<%= item.id %>">
                 <button type="submit"><%= item.name %></button>
             </form>
+
+            <form action="/delete/item/<%= item.id %>" method="post">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                <button type="submit">del</button>
+            </form>
         </div>
     <% }) %>
 </div>
