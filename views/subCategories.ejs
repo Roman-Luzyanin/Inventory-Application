@@ -1,7 +1,15 @@
 <div class="changeSubCategory" style="display: none;">
-    <form  method="post" class="newCategory">
+    <form  method="post" class="newCategory" enctype="multipart/form-data">
         <label for="update">New name</label>
         <input type="text" name="name" id="update">
+        <label for="image">Image:</label>
+
+        <div class="previewImg" onclick="removeImg()">
+            <img class="subPreview">
+        </div>
+
+        <input type="file" name="image" id="image" class="subImage">
+        <input type="hidden" name="removeImg" class="removeImg">
         <input type="hidden" name="parent_id" id="parent_id">
         <button type="submit">update</button>
         <button type="button" onclick="changeSubCategory()">cancel</button>
@@ -25,12 +33,15 @@
             <button class="changeSubCategoryBtn" type="button"
                     onclick="changeSubCategory('<%= subCategory.id %>',
                                                 '<%= subCategory.name %>',
-                                                 '<%= subCategory.parent_id %>')">update</button>
+                                                 '<%= subCategory.parent_id %>',
+                                                  '<%= subCategory.image_url %>')">update</button>
 
             <form action="/delete/subCategory/<%= subCategory.id %>" method="post">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
                 <button type="submit">del</button>
             </form>
+
+            <img src="<%= subCategory.image_url %>" style="width: 20px; height: 20px;"> <%# !!!!!!!!!!!!! %>
         </div>
     <% }) %>
 </div>

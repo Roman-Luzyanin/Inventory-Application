@@ -19,27 +19,30 @@ async function getHome(req, res) {
 }
 
 async function addCategory(req, res) {
-    await db.addCategory(req.body.newCategory, null);
+    await db.addCategory(req.body.newCategory, null, null);
     res.redirect('/');
 }
 
 async function addSubCategory(req, res) {
-    await db.addCategory(req.body.newSubCategory, req.body.categoryId);
+    const imagePath = req.file ? `images/${req.file.filename}` : null;
+    await db.addCategory(req.body.newSubCategory, req.body.categoryId, imagePath);
     res.redirect(`/?categoryId=${req.body.categoryId}`);
 }
 
 async function addItem(req, res) {
-    await db.addItem(req.body.newItem, req.body.subCategoryId);
+    const imagePath = req.file ? `images/${req.file.filename}` : null;
+    await db.addItem(req.body.newItem, req.body.subCategoryId, imagePath);
     res.redirect(`/?categoryId=${req.body.categoryId}&subCategoryId=${req.body.subCategoryId}`)
 }
 
 async function updateCategory(req, res) {
-    await db.updateCategory(req.body.name, req.params.id);
+    await db.updateCategory(req.params.id, req.body.name, null);
     res.redirect(`/?categoryId=${req.params.id}`);
 }
 
 async function updateSubCategory(req, res) {
-    await db.updateCategory(req.body.name, req.params.id);
+    const imagePath = req.file ? `images/${req.file.filename}` : null;
+    await db.updateCategory(req.params.id, req.body.name, imagePath, req.body.removeImg);
     res.redirect(`/?categoryId=${req.body.parent_id}`);
 }
 

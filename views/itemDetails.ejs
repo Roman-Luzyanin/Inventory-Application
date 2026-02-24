@@ -3,13 +3,13 @@
         <label for="update">New name</label>
         <input type="text" name="name" id="update" value="<%= item.name %>">
         <label for="image">Image:</label>
-        <% if (item.image_url) { %>
-            <div class="previewImg" onclick="removeImg()">
-                <img src="<%= item.image_url %>">
-            </div>
-        <% } %>
-        <input type="hidden" name="removeImg" value="" class="removeImg">
-        <input type="file" name="image" id="image">
+
+        <div class="previewImg" onclick="removeImg()">
+            <img src="<%= item.image_url %>">
+        </div>
+
+        <input type="file" name="image" id="image" class="itemImage">
+        <input type="hidden" name="removeImg" class="removeImg">
         <input type="hidden" name="categoryId" value="<%= categoryId %>">
         <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
         <input type="hidden" name="itemId" value="<%= itemId %>">
@@ -25,7 +25,7 @@
         <button type="submit">del</button>
     </form>
 
-    <button type="button" onclick="changeItem()">update</button>
+    <button type="button" onclick="changeItem('<%= item.image_url %>')">update</button>
 
     <h1><%= item.name %></h1>
  

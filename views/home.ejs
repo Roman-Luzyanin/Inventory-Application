@@ -81,9 +81,11 @@
                 <%= subCategory.name %>
 
                 <div class="addItem" style="display: none;">
-                    <form action="/item" method="post" class="newCategory">
+                    <form action="/item" method="post" class="newCategory" enctype="multipart/form-data">
                         <label for="newItem">New item</label>
                         <input type="text" name="newItem" id="newItem">
+                        <label for="image">Image:</label>
+                        <input type="file" name="image" id="image">
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
                         <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
                         <button type="submit">Add item</button>
@@ -98,9 +100,11 @@
                 <%= category.name %>
 
                 <div class="addSubCategory" style="display: none;">
-                    <form action="/subCategory" method="post" class="newCategory">
+                    <form action="/subCategory" method="post" class="newCategory" enctype="multipart/form-data">
                         <label for="newSubCategory">New category</label>
                         <input type="text" name="newSubCategory" id="newSubCategory">
+                        <label for="image">Image:</label>
+                        <input type="file" name="image" id="image">
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
                         <button type="submit">Add category</button>
                         <button type="button" onclick="addNewSubCategory()">Cancel</button>

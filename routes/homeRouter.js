@@ -31,11 +31,11 @@ const controllers = require('../controllers/homeController');
 homeRouter.get('/', controllers.getHome);
 
 homeRouter.post('/category', controllers.addCategory);
-homeRouter.post('/subCategory', controllers.addSubCategory);
-homeRouter.post('/item', controllers.addItem);
+homeRouter.post('/subCategory', upload.single('image'), controllers.addSubCategory);
+homeRouter.post('/item', upload.single('image'), controllers.addItem);
 
 homeRouter.post('/update/category/:id', controllers.updateCategory);
-homeRouter.post('/update/subCategory/:id', controllers.updateSubCategory);
+homeRouter.post('/update/subCategory/:id', upload.single('image'), controllers.updateSubCategory);
 homeRouter.post('/update/item/:id', upload.single('image'), controllers.updateItem);
 
 homeRouter.post('/delete/category/:id', controllers.deleteCategory);

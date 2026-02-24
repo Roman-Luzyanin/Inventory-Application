@@ -57,16 +57,26 @@ function changeCategory(id, name) {
         categories.style.display === 'none' ? 'block' : 'none';
 }
 
-function changeSubCategory(id, name, parent_id) {
+function changeSubCategory(id, name, parent_id, url) {
     const changeSubCategory = document.querySelector('.changeSubCategory');
     const subCategories = document.querySelector('.subCategories');
     const form = document.querySelector('.changeSubCategory form');
     const newName = document.querySelector('.changeSubCategory #update');
     const parentId = document.querySelector('.changeSubCategory #parent_id');
+    const imgSrc = document.querySelector('.subPreview');
+    const removeImg = document.querySelector('.removeImg');
+    const previewImg = document.querySelector('.previewImg');
+    const image = document.querySelector('.subImage');
+
+    image.value = '';
 
     form.action = `/update/subCategory/${id}`;
     newName.value = name;
-    parentId.value = parent_id;   
+    parentId.value = parent_id;
+
+    previewImg.style.display = url ? 'block' : 'none';
+    imgSrc.src = url ? url : '';
+    removeImg.value = url ? previewImg.style.display === 'block' ? '' : 'delete' : '';
 
     changeSubCategory.style.display = 
         changeSubCategory.style.display === 'none' ? 'block' : 'none';
@@ -75,9 +85,16 @@ function changeSubCategory(id, name, parent_id) {
         subCategories.style.display === 'none' ? 'flex' : 'none';
 }
 
-function changeItem() {
+function changeItem(url) {
         const itemDetails = document.querySelector('.itemDetails');
         const changeItem = document.querySelector('.changeItem');
+        const image = document.querySelector('.itemImage');
+        const previewImg = document.querySelector('.previewImg');
+        const removeImg = document.querySelector('.removeImg');
+
+        image.value = '';
+        previewImg.style.display = url ? 'block' : 'none';
+        removeImg.value = url ? previewImg.style.display === 'block' ? '' : 'delete' : '';
 
         itemDetails.style.display = 
                 itemDetails.style.display === 'none' ? 'block' : 'none';
@@ -90,6 +107,6 @@ function removeImg() {
     const removeImg = document.querySelector('.removeImg');
     const previewImg = document.querySelector('.previewImg');
 
-    removeImg.value = 'true';
+    removeImg.value = 'delete';
     previewImg.style.display = 'none';
 }
