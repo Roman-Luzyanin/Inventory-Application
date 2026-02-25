@@ -37,6 +37,13 @@ function addNewItem() {
         items.style.display === 'none' ? 'flex' : 'none';
 }
 
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('changeCategoryBtn')) {
+        const btn = e.target;
+        changeCategory(btn.dataset.id, btn.dataset.name);
+    }
+});
+
 function changeCategory(id, name) {
     const changeCategory = document.querySelector('.changeCategory');
     const categories = document.querySelector('.categories');
@@ -56,6 +63,13 @@ function changeCategory(id, name) {
     categories.style.display =
         categories.style.display === 'none' ? 'block' : 'none';
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('changeSubCategoryBtn')) {
+        const btn = e.target;
+        changeSubCategory(btn.dataset.id, btn.dataset.name, btn.dataset.parent, btn.dataset.url);
+    }
+});
 
 function changeSubCategory(id, name, parent_id, url) {
     const changeSubCategory = document.querySelector('.changeSubCategory');
@@ -84,6 +98,13 @@ function changeSubCategory(id, name, parent_id, url) {
     subCategories.style.display =
         subCategories.style.display === 'none' ? 'flex' : 'none';
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('changeItemDetailsBtn')) {
+        const btn = e.target;
+        changeItem(btn.dataset.url);
+    }
+});
 
 function changeItem(url) {
         const itemDetails = document.querySelector('.itemDetails');

@@ -1,17 +1,20 @@
-*, *::after, *::before { box-sizing: border-box;}
+*, *::after, *::before { box-sizing: border-box; margin: 0;}
 
 body {
     max-width: 1000px;
     margin: auto;
+    background-color: #E6ECF1;
 }
 
 h1 {
     text-align: center;
+    margin: 20px 0;
 }
 
 .app {
     display: flex;
     column-gap: 10px;
+    min-height: 500px;
 }
 
 .panel {
@@ -22,6 +25,7 @@ h1 {
 
 .panelHead {
     display: flex;
+    height: 70px;
     column-gap: 10px;
     align-items: center;
     justify-content: center;
@@ -36,6 +40,7 @@ h1 {
 .panelBody {
     border: 1px solid black;
     padding: 20px 0;
+    height: calc(100% - 80px);
 }
 
 .newCategory {

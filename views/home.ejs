@@ -44,7 +44,7 @@
                             </form>
 
                             <button class="changeCategoryBtn" type="button"
-                                    onclick="changeCategory('<%= category.id %>', '<%= category.name %>')">update</button>
+                                    data-id='<%= category.id %>' data-name='<%= category.name %>'>update</button>
                             
                             <form action="/delete/category/<%= category.id %>" method="post">
                                 <button type="submit">del</button>

@@ -30,11 +30,15 @@
                 <button type="submit"><%= subCategory.name %></button>
             </form>
 
-            <button class="changeSubCategoryBtn" type="button"
-                    onclick="changeSubCategory('<%= subCategory.id %>',
-                                                '<%= subCategory.name %>',
-                                                 '<%= subCategory.parent_id %>',
-                                                  '<%= subCategory.image_url %>')">update</button>
+            <button 
+                type="button"
+                class="changeSubCategoryBtn"
+                data-id="<%= subCategory.id %>"
+                data-name="<%= subCategory.name %>"
+                data-parent="<%= subCategory.parent_id %>"
+                data-url="<%= subCategory.image_url %>"
+            >update
+            </button>
 
             <form action="/delete/subCategory/<%= subCategory.id %>" method="post">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
