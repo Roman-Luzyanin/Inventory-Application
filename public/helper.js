@@ -122,7 +122,8 @@ function changeItem(url) {
 
         changeItem.style.display =
             changeItem.style.display === 'none' ? 'block' : 'none';
-    }
+}
+
 
 function removeImg() {
     const removeImg = document.querySelector('.removeImg');
@@ -131,3 +132,15 @@ function removeImg() {
     removeImg.value = 'delete';
     previewImg.style.display = 'none';
 }
+
+// document.addEventListener('click', (e) => {
+//     if (e.target.classList.contains('subImage')) {
+//         const subCategoryForm = document.querySelectorAll('.subCategoryForm');
+//         subCategoryForm[e.target.dataset.idx].submit();
+//     }
+
+//     if (e.target.classList.contains('itemImage')) {
+//         const itemForm = document.querySelectorAll('.itemForm');
+//         itemForm[e.target.dataset.idx].submit();
+//     }
+// })

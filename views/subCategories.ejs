@@ -24,10 +24,11 @@
     </div>
     <% subCategories.forEach(subCategory => { %>
         <div class="subCategoryRight">
-            <form action="/" method="get">
+            <img src="<%= subCategory.image_url %>" class="subImage">
+
+            <form action="/delete/subCategory/<%= subCategory.id %>" method="post" class="delSubCat">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
-                <button type="submit"><%= subCategory.name %></button>
+                <button type="submit"></button>
             </form>
 
             <button 
@@ -37,15 +38,13 @@
                 data-name="<%= subCategory.name %>"
                 data-parent="<%= subCategory.parent_id %>"
                 data-url="<%= subCategory.image_url %>"
-            >update
-            </button>
-
-            <form action="/delete/subCategory/<%= subCategory.id %>" method="post">
+            ></button>
+            
+            <form action="/" method="get" class="subCategoryForm">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                <button type="submit">del</button>
+                <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
+                <button type="submit"><%= subCategory.name %></button>
             </form>
-
-            <img src="<%= subCategory.image_url %>" style="width: 20px; height: 20px;"> <%# !!!!!!!!!!!!! %>
         </div>
     <% }) %>
 </div>

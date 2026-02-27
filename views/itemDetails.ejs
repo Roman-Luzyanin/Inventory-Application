@@ -19,12 +19,6 @@
 </div>
 
 <div class="itemDetails">
-    <form action="/delete/item/<%= item.id %>" method="post">
-        <input type="hidden" name="categoryId" value="<%= categoryId %>">
-        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-        <button type="submit">del</button>
-    </form>
-
     <button type="button" data-url="<%= item.image_url %>" class="changeItemDetailsBtn">update</button>
 
     <h1><%= item.name %></h1>

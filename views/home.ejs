@@ -9,7 +9,6 @@
 </head>
 <body>
     <h1>Inventory app</h1>
-    <hr />
     <div class="app">
         <div class="panel">
             <div class="panelHead">
@@ -68,17 +67,21 @@
 
         <div class="main">
             <% if (itemId && category) { %>
-                <a href="/">HOME</a> > 
-                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
-                <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a> > 
-                <%= item.name %>
+                <div class="breadcrums">
+                    <a href="/">HOME</a> > 
+                    <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
+                    <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a> > 
+                    <%= item.name %>
+                </div>
 
                 <%- include('itemDetails', {item, categoryId, subCategoryId}) %>
 
             <% } else if (subCategoryId && category) { %> 
-                <a href="/">HOME</a> > 
-                <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
-                <%= subCategory.name %>
+                <div class="breadcrums">
+                    <a href="/">HOME</a> > 
+                    <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
+                    <%= subCategory.name %>
+                </div>
 
                 <div class="addItem" style="display: none;">
                     <form action="/item" method="post" class="newCategory" enctype="multipart/form-data">
@@ -96,8 +99,10 @@
                 <%- include('items', {items, categoryId, subCategoryId}) %>
 
             <% } else if (categoryId && category) { %>
-                <a href="/">HOME</a> > 
-                <%= category.name %>
+                <div class="breadcrums">
+                    <a href="/">HOME</a> > 
+                    <%= category.name %>
+                </div>
 
                 <div class="addSubCategory" style="display: none;">
                     <form action="/subCategory" method="post" class="newCategory" enctype="multipart/form-data">
@@ -114,7 +119,10 @@
                 <%- include('subCategories', {subCategories, categoryId}) %>   
 
             <% } else { %>
-                HOME
+                <div class="breadcrums">
+                    HOME
+                </div>
+                
                 <div class="advertisement"></div>
             <% } %>
         </div>

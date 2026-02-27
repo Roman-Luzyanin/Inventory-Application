@@ -11,16 +11,25 @@ h1 {
     margin: 20px 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 .app {
     display: flex;
-    column-gap: 10px;
+    column-gap: 20px;
     min-height: 500px;
+    background-color: #E6ECF1;
+    border-radius: 10px;
+    user-select: none;
 }
 
 .panel {
     width: 30%;
-    border: 1px solid black;
-    padding: 10px;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #EEF2F5;
 }
 
 .panelHead {
@@ -29,8 +38,9 @@ h1 {
     column-gap: 10px;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
 }
 
 .panelHead button {
@@ -38,9 +48,10 @@ h1 {
 }
 
 .panelBody {
-    border: 1px solid black;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
+    border-radius: 10px;
     padding: 20px 0;
-    height: calc(100% - 80px);
+    height: calc(100% - 90px);
 }
 
 .newCategory {
@@ -68,17 +79,20 @@ h1 {
 }
 
 .main {
-    border: 1px solid black;
+    border: 2px solid white;
     width: 70%;
     padding: 20px;
+    background-color: #EEF2F5;
+    border-radius: 10px;
 }
 
 .addSubCategoryBtn,
 .addItemBtn {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     padding: 10px;
     border: 1px solid black;
+    border-radius: 10px;
 }
 
 .addSubCategoryBtn div,
@@ -87,20 +101,96 @@ h1 {
     width: 100%;
     height: 100%;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .subCategories,
 .items {
     display: flex;
-    column-gap: 10px;
+    column-gap: 13px;
+    row-gap: 13px; 
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .subCategoryRight,
 .item {
-    width: 100px;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid black;
+    width: 140px;
+    height: 140px;
+    border: 1px solid darkgoldenrod;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    transition: .2s;
+    position: relative;
+}
+
+.subCategoryRight:hover .delSubCat button,
+.subCategoryRight:hover .changeSubCategoryBtn,
+.item:hover .delItem button {
+    opacity: 1;
+}
+
+.subCategoryRight:hover,
+.item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 5px black;
+} 
+
+.itemImage,
+.subImage {
+    width: 100%;
+    height: 66%;
+    object-fit: contain;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: block;
+}
+
+.delSubCat,
+.delItem {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    
+}
+
+.delSubCat button,
+.delItem button {
+    width: 24px;
+    height: 24px;
+    background: url(./icons/trash.png) center / contain;
+    border: none;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.delSubCat button:active,
+.changeSubCategoryBtn:active,
+.delItem button:active {
+    transform: scale(0.9);
+}
+
+.changeSubCategoryBtn {
+    position: absolute;
+    top: 40%;
+    right: 10%;
+}
+
+.changeSubCategoryBtn {
+    width: 24px;
+    height: 24px;
+    background: url(./icons/settings.png) center / contain;
+    border: none;
+    opacity: 0;
+    transition: opacity .2s;
+}
+
+.subCategoryForm,
+.itemForm {
+    display: flex;
+    height: 34%;
+    justify-content: center;
+    align-items: center;
 }
 
 .advertisement {
@@ -131,4 +221,33 @@ h1 {
 
 .active {
     background-color: red;
+}
+
+.advertisement,
+.subCategories,
+.items,
+.itemDetails {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
+    height: calc(100% - 65px);
+}
+
+.breadcrums {
+    height: 45px;
+    padding: 11px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
+    margin-bottom: 20px;
+    color: black;
+}
+
+.breadcrums a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.breadcrums a:hover {
+    text-decoration: underline;
+    color: black;
 }

@@ -6,20 +6,20 @@
     </div>
     <% items.forEach(item => { %>
         <div class="item">
-            <form action="/" method="get">
+            <img src="<%= item.image_url %>" class="itemImage">
+
+            <form action="/delete/item/<%= item.id %>" method="post" class="delItem">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                <button type="submit"></button>
+            </form>
+
+            <form action="/" method="get" class="itemForm">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
                 <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
                 <input type="hidden" name="itemId" value="<%= item.id %>">
                 <button type="submit"><%= item.name %></button>
             </form>
-
-            <form action="/delete/item/<%= item.id %>" method="post">
-                <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-                <button type="submit">del</button>
-            </form>
-
-            <img src="<%= item.image_url %>" style="width: 10px; height: 10px;"> <%# !!!!!!!!!!!!! %>
         </div>
     <% }) %>
 </div>
