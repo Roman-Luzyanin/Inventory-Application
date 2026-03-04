@@ -11,14 +11,25 @@ h1 {
     margin: 20px 0;
 }
 
-button {
+button,
+input[type="checkbox"],
+input[type="file"] {
     cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}
+
+button:not(.newCategory button) {
+    background-color: transparent;
+    border: none;
 }
 
 .app {
     display: flex;
     column-gap: 20px;
-    min-height: 500px;
+    height: 500px;
     background-color: #E6ECF1;
     border-radius: 10px;
     user-select: none;
@@ -30,6 +41,7 @@ button {
     padding: 20px;
     border-radius: 10px;
     background-color: #EEF2F5;
+    
 }
 
 .panelHead {
@@ -43,15 +55,14 @@ button {
     box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
 }
 
-.panelHead button {
-    cursor: pointer;
-}
-
 .panelBody {
     box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
     border-radius: 10px;
     padding: 20px 0;
     height: calc(100% - 90px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
 }
 
 .newCategory {
@@ -61,21 +72,78 @@ button {
     row-gap: 10px;
 }
 
+.newCategory button {
+    padding: 2px 10px;
+}
+
 .category,
 .subCategory {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 3px 5px;
 }
 
-.subCategory {
-    padding: 0 20px 0 40px;
+.category button {
+    font-size: 18px;
 }
 
-.category button,
-.category p {
-    cursor: pointer;
+.subCategory button {
+    font-size: 16px;
+}
+
+.category button:hover,
+.subCategory button:hover {
+    font-weight: 700;
+}
+
+.category {
+    background-color: #EEF2F5;
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    margin: 15px 15px;
+    
+}
+
+.category:first-child {
+    margin-top: 5px;
+}
+
+.categories {
+    position: relative;
+    z-index: 1;
+}
+
+.addCategory,
+.addSubCategory,
+.addItem,
+.changeCategory,
+.changeSubCategory,
+.changeItem {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 100%;
+    transition: 0.3s;
+    background-color: #EEF2F5;
+    z-index: 10;
+}
+
+.addSubCategory,
+.addItem,
+.changeSubCategory,
+.changeItem {
+    width: calc(100% - 40px);
+    height: calc(100% - 130px);
+    padding: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.visible {
+    left: 0;
 }
 
 .main {
@@ -84,6 +152,24 @@ button {
     padding: 20px;
     background-color: #EEF2F5;
     border-radius: 10px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.subCategory {
+    padding: 0 20px 0 40px;
+    position: relative;
+}
+
+.subCategory::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    width: 10px;
+    height: 35px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .addSubCategoryBtn,
@@ -91,21 +177,42 @@ button {
     width: 140px;
     height: 140px;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 10px;
+}
+
+.disabled {
+    opacity: 0.3;
 }
 
 .addSubCategoryBtn div,
 .addItemBtn div {
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
     padding: 10px;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addSubCategoryBtn button,
+.addItemBtn button {
+    width: 64px;
+    height: 64px;
+    background: url(./icons/add.png) center / contain;
+}
+
+.addCategoryBtn {
+    width: 32px;
+    height: 32px;
+    background: url(./icons/add.png) center / contain;
 }
 
 .subCategories,
-.items {
+.items,
+.promo {
     display: flex;
     column-gap: 13px;
     row-gap: 13px; 
@@ -117,9 +224,9 @@ button {
 .item {
     width: 140px;
     height: 140px;
-    border: 1px solid darkgoldenrod;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    background-color: #F9F9F9;
+    background-color: #E6ECF1;
     transition: .2s;
     position: relative;
 }
@@ -132,9 +239,13 @@ button {
 
 .subCategoryRight:hover,
 .item:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
     box-shadow: 0 0 5px black;
 } 
+
+.itemDetails h1 {
+    margin: 0 0 50px;
+}
 
 .itemImage,
 .subImage {
@@ -149,22 +260,39 @@ button {
 .delSubCat,
 .delItem {
     position: absolute;
-    top: 10%;
-    right: 10%;
-    
+    top: 7%;
+    right: 3%;
+}
+
+.delCat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delCat button {
+    width: 20px;
+    height: 20px;
+    background: url(./icons/trash.png) center / contain;
+    opacity: 0;
+}
+
+.category:hover .delCat button {
+    opacity: 1;
 }
 
 .delSubCat button,
 .delItem button {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: url(./icons/trash.png) center / contain;
-    border: none;
     opacity: 0;
     transition: opacity .2s;
 }
 
 .delSubCat button:active,
+.changeCategoryBtn:active,
+.category .delCat button:active,
 .changeSubCategoryBtn:active,
 .delItem button:active {
     transform: scale(0.9);
@@ -172,17 +300,33 @@ button {
 
 .changeSubCategoryBtn {
     position: absolute;
-    top: 40%;
-    right: 10%;
+    top: 33%;
+    right: 3%;
+}
+
+.changeCategoryBtn {
+    width: 20px;
+    height: 20px;
+    background: url(./icons/settings.png) center / contain;
+    opacity: 0;
+}
+
+.category:hover .changeCategoryBtn {
+    opacity: 1;
 }
 
 .changeSubCategoryBtn {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: url(./icons/settings.png) center / contain;
-    border: none;
     opacity: 0;
     transition: opacity .2s;
+}
+
+.changeItemDetailsBtn {
+    width: 34px;
+    height: 34px;
+    background: url(./icons/settings.png) center / contain;
 }
 
 .subCategoryForm,
@@ -193,15 +337,15 @@ button {
     align-items: center;
 }
 
-.advertisement {
-    width: 100%;
-    height: 100%;
-    background-color: red;
+.placeAtHome {
+    display: flex;
+    column-gap: 20px;
 }
 
 .previewImg img {
     width: 90px;
     height: 60px;
+    object-fit: contain;
 }
 
 .previewImg {
@@ -219,11 +363,43 @@ button {
     background-color: red;
 }
 
-.active {
-    background-color: red;
+.description {
+    display: flex;
+    column-gap: 40px;
 }
 
-.advertisement,
+.description img {
+    width: 45%;
+}
+
+#addSubCategoryForm {
+    margin-top: 40px;
+}
+
+#changeSubCategoryForm {
+    margin-top: 20px;
+}
+
+#subCategoryFile,
+#changeSubCategoryFile {
+    margin: 10px 0 20px;
+}
+
+#description,
+#descriptionUpdate {
+    width: 400px;
+}
+
+.active {
+    font-weight: 700;
+}
+
+.homeImage {
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+.home,
 .subCategories,
 .items,
 .itemDetails {
@@ -231,6 +407,7 @@ button {
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(128, 128, 128, 0.6);
     height: calc(100% - 65px);
+    overflow-y: scroll;
 }
 
 .breadcrums {

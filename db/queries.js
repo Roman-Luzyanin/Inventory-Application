@@ -24,12 +24,18 @@ async function getItems(i_id) {
     return rows;
 }
 
+async function getPromoItems() {
+    const { rows } = await pool.query('SELECT * FROM items WHERE promote = TRUE');
+    // console.log(rows)
+    return rows;
+}
+
 async function addCategory(c_name, p_id, c_img) {
     await pool.query('INSERT INTO categories (name, parent_id, image_url) VALUES ($1, $2, $3)', [c_name, p_id, c_img]);
 }
 
-async function addItem(i_name, c_id, i_img) {
-    await pool.query('INSERT INTO items (name, category_id, image_url) VALUES ($1, $2, $3)', [i_name, c_id, i_img]);
+async function addItem(i_name, r_id, c_id, i_img, i_desc, i_prom) {
+    await pool.query('INSERT INTO items (name, root_id, category_id, image_url, description, promote) VALUES ($1, $2, $3, $4, $5, $6)', [i_name, r_id, c_id, i_img, i_desc, i_prom]);
 }
 
 async function updateCategory(c_id, c_name, c_img, i_del) {
@@ -47,6 +53,7 @@ async function updateCategory(c_id, c_name, c_img, i_del) {
     } else if (i_del) {
         newPath = null;
         oldPath = path.join(__dirname, '../public', oldPath);
+        console.log(oldPath)
         fs.unlink(oldPath, (err)=>{
             if (err) console.error('Failed to delete image:', err);
         });
@@ -55,7 +62,7 @@ async function updateCategory(c_id, c_name, c_img, i_del) {
     await pool.query('UPDATE categories SET name = $2, image_url = $3 WHERE id = $1', [c_id, c_name, newPath]);
 }
 
-async function updateItem(i_id, i_name, i_img, i_del) {
+async function updateItem(i_id, i_name, i_img, i_desc, i_prom, i_del) {
     const { rows } = await pool.query('SELECT image_url FROM items WHERE id = $1', [i_id]);
     let oldPath = rows[0].image_url;
     let newPath = oldPath;
@@ -75,7 +82,7 @@ async function updateItem(i_id, i_name, i_img, i_del) {
         });
     }
 
-    await pool.query('UPDATE items SET name = $2, image_url = $3 WHERE id = $1', [i_id, i_name, newPath]);
+    await pool.query('UPDATE items SET name = $2, image_url = $3, description = $4, promote = $5 WHERE id = $1', [i_id, i_name, newPath, i_desc, i_prom]);
 }
 
 async function deleteCategory(c_id) {
@@ -105,6 +112,7 @@ module.exports = {
     getCategories,
     getSubCategories,
     getItems,
+    getPromoItems,
     addCategory,
     addItem,
     updateCategory,

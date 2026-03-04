@@ -1,12 +1,12 @@
 <div class="items">
     <div class="addItemBtn">
         <div>
-            <button type="button" onclick="addNewItem()">add</button>
+            <button type="button" onclick="addNewItem()"></button>
         </div>
     </div>
     <% items.forEach(item => { %>
         <div class="item">
-            <img src="<%= item.image_url %>" class="itemImage">
+            <img src="<%= item.image_url || 'placeholder/image.png' %>" class="itemImage">
 
             <form action="/delete/item/<%= item.id %>" method="post" class="delItem">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">

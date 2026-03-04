@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="helper.js"></script>
+    <script src="helper.js" defer></script>
     <title>Home</title>
 </head>
 <body>
@@ -12,25 +12,25 @@
     <div class="app">
         <div class="panel">
             <div class="panelHead">
-                <h3>Categories</h3>
-                <button class="addCategoryBtn" onclick="addNewCategory()">addCat</button>
+                <h2>Categories</h2>
+                <button class="addCategoryBtn" onclick="addNewCategory()"></button>
             </div>
 
             <div class="panelBody">
-                <div class="addCategory" style="display: none;">
-                    <form action="/category" method="post" class="newCategory">
-                        <label for="newCategory">New category</label>
-                        <input type="text" name="newCategory" id="newCategory">
+                <div class="addCategory" >
+                    <form action="/category" method="post" class="newCategory" id="addCategoryForm">
+                        <label for="categoryName">New category</label>
+                        <input type="text" name="categoryName" id="categoryName">
                         <button type="submit">Add category</button>
-                        <button type="button" onclick="addNewCategory()">cancel</button>
+                        <button type="button" onclick="addNewCategory()">Cancel</button>
                     </form>
                 </div>
-                <div class="changeCategory" style="display: none;">
-                    <form  method="post" class="newCategory">
-                        <label for="update">New name</label>
-                        <input type="text" name="name" id="update">
-                        <button type="submit">update</button>
-                        <button type="button" onclick="changeCategory()">cancel</button>
+                <div class="changeCategory" >
+                    <form  method="post" class="newCategory" id="changeCategoryForm">
+                        <label for="updateCategoryName">New name</label>
+                        <input type="text" name="name" id="updateCategoryName">
+                        <button type="submit">Apply</button>
+                        <button type="button" onclick="changeCategory()">Cancel</button>
                     </form>          
                 </div>
                 <div class="categories">
@@ -41,13 +41,15 @@
                                     value="<%= currentPath == category.id ? null : category.id %>">       
                                 <button type="submit" class="<%= category.id == categoryId ? 'active' : '' %>"><%= category.name %></button>
                             </form>
-
-                            <button class="changeCategoryBtn" type="button"
-                                    data-id='<%= category.id %>' data-name='<%= category.name %>'>update</button>
                             
-                            <form action="/delete/category/<%= category.id %>" method="post">
-                                <button type="submit">del</button>
-                            </form>
+                            <div style="display: flex; column-gap: 10px;">
+                                <button class="changeCategoryBtn" type="button"
+                                        data-id='<%= category.id %>' data-name='<%= category.name %>'></button>
+                                
+                                <form action="/delete/category/<%= category.id %>" method="post" class="delCat">
+                                    <button type="submit"></button>
+                                </form>
+                            </div>
                         </div>
                         <% if (category.id == categoryId) { %>
                             <% subCategories.forEach(subCategory => { %>
@@ -74,7 +76,7 @@
                     <%= item.name %>
                 </div>
 
-                <%- include('itemDetails', {item, categoryId, subCategoryId}) %>
+                <%- include('itemDetails') %>
 
             <% } else if (subCategoryId && category) { %> 
                 <div class="breadcrums">
@@ -83,12 +85,20 @@
                     <%= subCategory.name %>
                 </div>
 
-                <div class="addItem" style="display: none;">
-                    <form action="/item" method="post" class="newCategory" enctype="multipart/form-data">
-                        <label for="newItem">New item</label>
-                        <input type="text" name="newItem" id="newItem">
-                        <label for="image">Image:</label>
-                        <input type="file" name="image" id="image">
+                <div class="addItem">
+                    <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
+                        <label for="itemName">New item:</label>
+                        <input type="text" name="itemName" id="itemName">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description"></textarea>
+
+                        <div class="placeAtHome">
+                            <label>Place at HOME:</label>
+                            <input type="checkbox" name="isPromote" id="isPromote">
+                        </div>
+                        
+                        <label>Image:</label>
+                        <input type="file" name="image" id="itemFile">
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
                         <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
                         <button type="submit">Add item</button>
@@ -96,7 +106,7 @@
                     </form>
                 </div>
 
-                <%- include('items', {items, categoryId, subCategoryId}) %>
+                <%- include('items') %>
 
             <% } else if (categoryId && category) { %>
                 <div class="breadcrums">
@@ -104,26 +114,32 @@
                     <%= category.name %>
                 </div>
 
-                <div class="addSubCategory" style="display: none;">
-                    <form action="/subCategory" method="post" class="newCategory" enctype="multipart/form-data">
-                        <label for="newSubCategory">New category</label>
-                        <input type="text" name="newSubCategory" id="newSubCategory">
-                        <label for="image">Image:</label>
-                        <input type="file" name="image" id="image">
+                <div class="addSubCategory">
+                    <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
+                        <label for="subCategoryName">New category</label>
+                        <input type="text" name="subCategoryName" id="subCategoryName">
+                        <label>Image:</label>
+                        <input type="file" name="image" id="subCategoryFile">
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
                         <button type="submit">Add category</button>
                         <button type="button" onclick="addNewSubCategory()">Cancel</button>
                     </form>
                 </div>
                 
-                <%- include('subCategories', {subCategories, categoryId}) %>   
+                <%- include('subCategories') %>   
 
             <% } else { %>
                 <div class="breadcrums">
                     HOME
                 </div>
                 
-                <div class="advertisement"></div>
+                <div class="home">
+                    <% if (promo.length > 0) { %>
+                        <%- include('promo') %> 
+                    <% } else { %>
+                        <img src="<%= 'placeholder/home.png' %>" class="homeImage">
+                    <% } %>
+                </div>
             <% } %>
         </div>
     </div>

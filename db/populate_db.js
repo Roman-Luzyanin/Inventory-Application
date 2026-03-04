@@ -11,8 +11,11 @@ const SQL = `
     CREATE TABLE IF NOT EXISTS items(
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         name TEXT NOT NULL,
+        root_id INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
         category_id INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-        image_url TEXT
+        image_url TEXT,
+        description TEXT,
+        promote BOOLEAN DEFAULT FALSE
     );
 
     

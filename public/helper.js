@@ -1,41 +1,96 @@
+// --------------------Add Category-------------------------------------
+
+const addCategory = document.querySelector('.addCategory');
+const addCategoryForm = document.getElementById('addCategoryForm');
+
+addCategoryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    addCategory.addEventListener('transitionend', () => {
+        addCategoryForm.submit();
+    }, { once: true });
+
+    addCategory.classList.toggle('visible');
+})
+
 function addNewCategory() {
-    const addCategory = document.querySelector('.addCategory');
-    const categories = document.querySelector('.categories');
     const addCategoryBtn = document.querySelector('.addCategoryBtn');
+    const categoryName = document.getElementById('categoryName');
 
-    addCategory.style.display = 
-        addCategory.style.display === 'none' ? 'block' : 'none';
-
-    categories.style.display =
-        categories.style.display === 'none' ? 'block' : 'none';
-
+    categoryName.value = '';
+    addCategory.classList.toggle('visible');
+    addCategoryBtn.classList.toggle('disabled');
+    
     addCategoryBtn.disabled = 
         addCategoryBtn.disabled === true ? false : true;
-
 }
+
+// --------------------Add Sub Category--------------------------------------
+
+const addSubCategory = document.querySelector('.addSubCategory');
+const addSubCategoryForm = document.getElementById('addSubCategoryForm');
+
+addSubCategoryForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    addSubCategory.addEventListener('transitionend', () => {
+        addSubCategoryForm.submit();
+    }, { once: true });
+
+    addSubCategory.classList.toggle('visible');
+})
 
 function addNewSubCategory() {
-    const addSubCategory = document.querySelector('.addSubCategory');
-    const subCategories = document.querySelector('.subCategories');
+    const subCategoryName = document.getElementById('subCategoryName');
+    const subCategoryFile = document.getElementById('subCategoryFile');
 
-    addSubCategory.style.display = 
-        addSubCategory.style.display === 'none' ? 'block' : 'none';
-
-    subCategories.style.display =
-        subCategories.style.display === 'none' ? 'flex' : 'none';
-
+    subCategoryName.value = '';
+    subCategoryFile.value = '';
+    addSubCategory.classList.toggle('visible');
 }
+
+// ---------------------Add Item--------------------------------------------
+
+const addItem = document.querySelector('.addItem');
+const addItemForm = document.getElementById('addItemForm');
+
+addItemForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    addItem.addEventListener('transitionend', () => {
+        addItemForm.submit();
+    }, { once: true });
+
+    addItem.classList.toggle('visible');
+})
 
 function addNewItem() {
-    const addItem = document.querySelector('.addItem');
-    const items = document.querySelector('.items');
-
-    addItem.style.display = 
-        addItem.style.display === 'none' ? 'block' : 'none';
-
-    items.style.display =
-        items.style.display === 'none' ? 'flex' : 'none';
+    const itemName = document.getElementById('itemName');
+    const description = document.getElementById('description');
+    const isPromote = document.getElementById('isPromote');
+    const itemFile = document.getElementById('itemFile');
+    
+    itemName.value = '';
+    description.value = '';
+    isPromote.checked = false;
+    itemFile.value = '';
+    addItem.classList.toggle('visible');
 }
+
+// -------------------Change Category--------------------------------------
+
+const updateCategory = document.querySelector('.changeCategory');
+const changeCategoryForm = document.getElementById('changeCategoryForm');
+
+changeCategoryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    updateCategory.addEventListener('transitionend', () => {
+        changeCategoryForm.submit();
+    }, { once: true });
+
+    updateCategory.classList.toggle('visible');
+})
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('changeCategoryBtn')) {
@@ -45,24 +100,34 @@ document.addEventListener('click', (e) => {
 });
 
 function changeCategory(id, name) {
-    const changeCategory = document.querySelector('.changeCategory');
-    const categories = document.querySelector('.categories');
     const form = document.querySelector('.changeCategory form');
-    const input = document.querySelector('.changeCategory form input');
+    const input = document.getElementById('updateCategoryName');
+    const changeCategory = document.querySelector('.changeCategory');
     const addCategoryBtn = document.querySelector('.addCategoryBtn');
+    
+    form.action = `/update/category/${id}`;
+    input.value = name;
+    changeCategory.classList.toggle('visible');
+    addCategoryBtn.classList.toggle('disabled');
     
     addCategoryBtn.disabled = 
         addCategoryBtn.disabled === true ? false : true;
-
-    form.action = `/update/category/${id}`;
-    input.value = name;
-
-    changeCategory.style.display = 
-        changeCategory.style.display === 'none' ? 'block' : 'none';
-
-    categories.style.display =
-        categories.style.display === 'none' ? 'block' : 'none';
 }
+
+// ------------------------------Change Sub Category-------------------------------
+
+const updateSubCategory = document.querySelector('.changeSubCategory');
+const changeSubCategoryForm = document.getElementById('changeSubCategoryForm');
+
+changeSubCategoryForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    updateSubCategory.addEventListener('transitionend', () => {
+        changeSubCategoryForm.submit();
+    }, { once: true });
+
+    updateSubCategory.classList.toggle('visible');
+})
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('changeSubCategoryBtn')) {
@@ -72,58 +137,66 @@ document.addEventListener('click', (e) => {
 });
 
 function changeSubCategory(id, name, parent_id, url) {
-    const changeSubCategory = document.querySelector('.changeSubCategory');
-    const subCategories = document.querySelector('.subCategories');
     const form = document.querySelector('.changeSubCategory form');
-    const newName = document.querySelector('.changeSubCategory #update');
-    const parentId = document.querySelector('.changeSubCategory #parent_id');
-    const imgSrc = document.querySelector('.subPreview');
-    const removeImg = document.querySelector('.removeImg');
+    const newName = document.getElementById('subNameUpdate');
+    const imgSrc = document.querySelector('.subPreviewSrc');
     const previewImg = document.querySelector('.previewImg');
-    const image = document.querySelector('.subImage');
-
-    image.value = '';
+    const changeSubCategoryFile = document.getElementById('changeSubCategoryFile');
+    const parentId = document.getElementById('parent_id');
+    const removeImg = document.querySelector('.removeImg');
+    const changeSubCategory = document.querySelector('.changeSubCategory');
 
     form.action = `/update/subCategory/${id}`;
     newName.value = name;
-    parentId.value = parent_id;
-
-    previewImg.style.display = url ? 'block' : 'none';
     imgSrc.src = url ? url : '';
+    previewImg.style.display = url ? 'block' : 'none';
+    changeSubCategoryFile.value = '';
+    parentId.value = parent_id;
     removeImg.value = url ? previewImg.style.display === 'block' ? '' : 'delete' : '';
-
-    changeSubCategory.style.display = 
-        changeSubCategory.style.display === 'none' ? 'block' : 'none';
-
-    subCategories.style.display =
-        subCategories.style.display === 'none' ? 'flex' : 'none';
+    changeSubCategory.classList.toggle('visible');
 }
+
+// -----------------------------Change Item------------------------------------------------------------
+
+const updateItem = document.querySelector('.changeItem');
+const changeItemForm = document.getElementById('changeItemForm');
+
+changeItemForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    updateItem.addEventListener('transitionend', () => {
+        changeItemForm.submit();
+    }, { once: true });
+
+    updateItem.classList.toggle('visible');
+})
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('changeItemDetailsBtn')) {
         const btn = e.target;
-        changeItem(btn.dataset.url);
+        changeItem(btn.dataset.url, btn.dataset.name, btn.dataset.description, btn.dataset.promote);
     }
 });
 
-function changeItem(url) {
-        const itemDetails = document.querySelector('.itemDetails');
-        const changeItem = document.querySelector('.changeItem');
-        const image = document.querySelector('.itemImage');
+function changeItem(url, name, description, isPromote) {
+        const itemNameUpdate = document.getElementById('itemNameUpdate');
+        const descriptionUpdate = document.getElementById('descriptionUpdate');
+        const isPromoteUpt = document.getElementById('isPromoteUpt');
         const previewImg = document.querySelector('.previewImg');
+        const updateItemFile = document.getElementById('updateItemFile');
         const removeImg = document.querySelector('.removeImg');
+        const changeItem = document.querySelector('.changeItem');
 
-        image.value = '';
+        itemNameUpdate.value = name;
+        descriptionUpdate.value = description;
+        isPromoteUpt.checked = isPromote;
         previewImg.style.display = url ? 'block' : 'none';
+        updateItemFile.value = '';
         removeImg.value = url ? previewImg.style.display === 'block' ? '' : 'delete' : '';
-
-        itemDetails.style.display = 
-                itemDetails.style.display === 'none' ? 'block' : 'none';
-
-        changeItem.style.display =
-            changeItem.style.display === 'none' ? 'block' : 'none';
+        changeItem.classList.toggle('visible');
 }
 
+// ===================================================================================================================
 
 function removeImg() {
     const removeImg = document.querySelector('.removeImg');
@@ -132,15 +205,3 @@ function removeImg() {
     removeImg.value = 'delete';
     previewImg.style.display = 'none';
 }
-
-// document.addEventListener('click', (e) => {
-//     if (e.target.classList.contains('subImage')) {
-//         const subCategoryForm = document.querySelectorAll('.subCategoryForm');
-//         subCategoryForm[e.target.dataset.idx].submit();
-//     }
-
-//     if (e.target.classList.contains('itemImage')) {
-//         const itemForm = document.querySelectorAll('.itemForm');
-//         itemForm[e.target.dataset.idx].submit();
-//     }
-// })
