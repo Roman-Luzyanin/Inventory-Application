@@ -108,6 +108,12 @@ async function deleteItem(i_id) {
     await pool.query('DELETE FROM items WHERE id = $1', [i_id]);
 }
 
+async function searchItems(i_name, c_id) {
+    const { rows } = await pool.query('SELECT * FROM items WHERE name ILIKE $1 AND category_id = $2', [`${i_name}%`, c_id]);
+    // console.log(rows)
+    return rows;
+}
+
 module.exports = {
     getCategories,
     getSubCategories,
@@ -118,5 +124,6 @@ module.exports = {
     updateCategory,
     updateItem,
     deleteCategory,
-    deleteItem
+    deleteItem,
+    searchItems
 }

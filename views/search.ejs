@@ -1,0 +1,20 @@
+<div class="items">
+    <% searchedItems.forEach(item => { %>
+        <div class="item">
+            <img src="<%= item.image_url || 'placeholder/image.png' %>" class="itemImage">
+
+            <form action="/delete/item/<%= item.id %>" method="post" class="delItem">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                <button type="submit"></button>
+            </form>
+
+            <form action="/" method="get" class="itemForm">
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                <input type="hidden" name="itemId" value="<%= item.id %>">
+                <button type="submit"><%= item.name %></button>
+            </form>
+        </div>
+    <% }) %>
+</div>

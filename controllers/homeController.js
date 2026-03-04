@@ -15,9 +15,12 @@ async function getHome(req, res) {
 
     const promo = await db.getPromoItems();
 
+    const searchedItems = await db.searchItems(req.query.searchedName, req.query.subCategoryId);
+    const searchQuery = req.query.searchedName;
+
     res.render('home', {categories, subCategories, items,
                         categoryId, subCategoryId, itemId,
-                        category, subCategory, item, promo});
+                        category, subCategory, item, promo, searchedItems, searchQuery});
 }
 
 async function addCategory(req, res) {
