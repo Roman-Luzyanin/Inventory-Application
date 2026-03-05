@@ -1,20 +1,50 @@
-<div class="items">
-    <% searchedItems.forEach(item => { %>
-        <div class="item">
-            <img src="<%= item.image_url || 'placeholder/image.png' %>" class="itemImage">
+<% if (searchedItems.length > 0) { %>
+    <div class="items">
+        <% searchedItems.forEach(item => { %>
+            <div class="item">
+                <img src="<%= item.image_url || 'placeholder/image.png' %>" class="itemImage">
 
-            <form action="/delete/item/<%= item.id %>" method="post" class="delItem">
-                <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-                <button type="submit"></button>
-            </form>
+                <form action="/delete/item/<%= item.id %>" method="post" class="delItem">
+                    <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                    <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                    <button type="submit"></button>
+                </form>
 
-            <form action="/" method="get" class="itemForm">
-                <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-                <input type="hidden" name="itemId" value="<%= item.id %>">
-                <button type="submit"><%= item.name %></button>
-            </form>
-        </div>
-    <% }) %>
-</div>
+                <form action="/" method="get" class="itemForm">
+                    <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                    <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                    <input type="hidden" name="itemId" value="<%= item.id %>">
+                    <button type="submit"><%= item.name %></button>
+                </form>
+            </div>
+        <% }) %>
+    </div>
+<% } else if (searchedSubCat.length > 0) { %>
+    <div class="subCategories">
+        <% searchedSubCat.forEach(subCategory => { %>
+            <div class="subCategoryRight">
+                <img src="<%= subCategory.image_url || 'placeholder/image.png' %>" class="subImage">
+
+                <form action="/delete/subCategory/<%= subCategory.id %>" method="post" class="delSubCat">
+                    <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                    <button type="submit"></button>
+                </form>
+
+                <button 
+                    type="button"
+                    class="changeSubCategoryBtn"
+                    data-id="<%= subCategory.id %>"
+                    data-name="<%= subCategory.name %>"
+                    data-parent="<%= subCategory.parent_id %>"
+                    data-url="<%= subCategory.image_url %>"
+                ></button>
+                
+                <form action="/" method="get" class="subCategoryForm">
+                    <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                    <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
+                    <button type="submit"><%= subCategory.name %></button>
+                </form>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

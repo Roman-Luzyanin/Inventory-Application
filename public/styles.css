@@ -440,7 +440,7 @@ button:not(.newCategory button) {
 }
 
 .search input {
-    width: 100px;
+    width: 120px;
     height: 23px;
     border-radius: 10px;
     border: none;
@@ -452,6 +452,10 @@ button:not(.newCategory button) {
 .breadcrums a {
     text-decoration: none;
     color: rgba(0, 0, 0, 0.6);
+}
+
+.breadcrums a:last-of-type {
+    color: black;
 }
 
 .breadcrums a:hover {

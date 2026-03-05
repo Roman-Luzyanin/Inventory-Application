@@ -114,6 +114,11 @@ async function searchItems(i_name, c_id) {
     return rows;
 }
 
+async function searchSubCategories(c_name, p_id) {
+    const { rows } = await pool.query('SELECT * FROM categories WHERE name ILIKE $1 AND parent_id = $2', [`${c_name}%`, p_id]);
+    return rows;
+}
+
 module.exports = {
     getCategories,
     getSubCategories,
@@ -125,5 +130,6 @@ module.exports = {
     updateItem,
     deleteCategory,
     deleteItem,
-    searchItems
+    searchItems,
+    searchSubCategories
 }

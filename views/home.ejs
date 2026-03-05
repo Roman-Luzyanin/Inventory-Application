@@ -72,8 +72,8 @@
                 <div class="breadcrums">
                     <a href="/">HOME</a> > 
                     <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
-                    <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a> > 
-                    <%= item.name %>
+                    <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a> >
+                    <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>&itemId=<%= itemId %>"><%= item.name %></a>  
                 </div>
 
                 <%- include('itemDetails') %>
@@ -82,7 +82,7 @@
                 <div class="breadcrums">
                     <a href="/">HOME</a> > 
                     <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a> > 
-                    <%= subCategory.name %>
+                    <a href="/?categoryId=<%= categoryId %>&subCategoryId=<%= subCategoryId %>"><%= subCategory.name %></a>
 
                     <form action="/" method="get" class="search">   
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
@@ -100,53 +100,67 @@
                         <p class="noMatches">No matches found</p>   
                     </div>
                 <% } else { %>
-                <div class="addItem">
-                    <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
-                        <label for="itemName">New item:</label>
-                        <input type="text" name="itemName" id="itemName">
-                        <label for="description">Description:</label>
-                        <textarea name="description" id="description"></textarea>
+                    <div class="addItem">
+                        <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
+                            <label for="itemName">New item:</label>
+                            <input type="text" name="itemName" id="itemName">
+                            <label for="description">Description:</label>
+                            <textarea name="description" id="description"></textarea>
 
-                        <div class="placeAtHome">
-                            <label>Place at HOME:</label>
-                            <input type="checkbox" name="isPromote" id="isPromote">
-                        </div>
-                        
-                        <label>Image:</label>
-                        <input type="file" name="image" id="itemFile">
-                        <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-                        <button type="submit">Add item</button>
-                        <button type="button" onclick="addNewItem()">Cancel</button>
-                    </form>
-                </div>
+                            <div class="placeAtHome">
+                                <label>Place at HOME:</label>
+                                <input type="checkbox" name="isPromote" id="isPromote">
+                            </div>
+                            
+                            <label>Image:</label>
+                            <input type="file" name="image" id="itemFile">
+                            <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                            <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                            <button type="submit">Add item</button>
+                            <button type="button" onclick="addNewItem()">Cancel</button>
+                        </form>
+                    </div>
 
-                <%- include('items') %>
+                    <%- include('items') %>
                 <% } %>
 
             <% } else if (categoryId && category) { %>
                 <div class="breadcrums">
                     <a href="/">HOME</a> > 
-                    <%= category.name %>
-                </div>
-
-                <div class="addSubCategory">
-                    <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
-                        <label for="subCategoryName">New category</label>
-                        <input type="text" name="subCategoryName" id="subCategoryName">
-                        <label>Image:</label>
-                        <input type="file" name="image" id="subCategoryFile">
+                    <a href="/?categoryId=<%= categoryId %>"><%= category.name %></a>
+                
+                    <form action="/" method="get" class="search">   
                         <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                        <button type="submit">Add category</button>
-                        <button type="button" onclick="addNewSubCategory()">Cancel</button>
+                        <input type="text" name="searchedName" required placeholder="search...">
                     </form>
                 </div>
-                
-                <%- include('subCategories') %>   
+
+                <% if (searchedSubCat.length > 0) { %>
+                    <%- include('search') %>
+                <% } else if (searchedSubCat.length === 0 && searchQuery) { %>
+                    <div class="items">
+                        <a href="/?categoryId=<%= categoryId %>">Back</a>
+                        <p class="noMatches">No matches found</p>   
+                    </div>
+                <% } else { %>
+                    <div class="addSubCategory">
+                        <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
+                            <label for="subCategoryName">New category</label>
+                            <input type="text" name="subCategoryName" id="subCategoryName">
+                            <label>Image:</label>
+                            <input type="file" name="image" id="subCategoryFile">
+                            <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                            <button type="submit">Add category</button>
+                            <button type="button" onclick="addNewSubCategory()">Cancel</button>
+                        </form>
+                    </div>
+                    
+                    <%- include('subCategories') %>   
+                <% } %>
 
             <% } else { %>
                 <div class="breadcrums">
-                    HOME
+                    <a href="/">HOME</a>
                 </div>
                 
                 <div class="home">
