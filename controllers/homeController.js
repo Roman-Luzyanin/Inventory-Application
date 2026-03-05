@@ -64,6 +64,11 @@ async function updateItem(req, res) {
                      `&itemId=${req.body.itemId}`);
 }
 
+async function depromoteItem(req, res) {
+    await db.updateItem(req.params.id, req.body.itemNameUpdate, req.body.imagePath, req.body.descriptionUpdate, req.body.isPromoteUpt, req.body.removeImg);
+    res.redirect('/');
+}
+
 async function deleteCategory(req, res) {
     await db.deleteCategory(req.params.id);
     res.redirect('/');
@@ -87,6 +92,7 @@ module.exports = {
     updateCategory,
     updateSubCategory,
     updateItem,
+    depromoteItem,
     deleteCategory,
     deleteSubCategory,
     deleteItem

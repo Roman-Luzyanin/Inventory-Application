@@ -239,7 +239,8 @@ button:not(.newCategory button) {
 
 .subCategoryRight:hover .delSubCat button,
 .subCategoryRight:hover .changeSubCategoryBtn,
-.item:hover .delItem button {
+.item:hover .delItem button,
+.item:hover .delPromo button {
     opacity: 1;
 }
 
@@ -264,10 +265,22 @@ button:not(.newCategory button) {
 }
 
 .delSubCat,
+.delPromo,
 .delItem {
     position: absolute;
     top: 7%;
     right: 3%;
+}
+
+.delPromo {
+    right: 7%;
+}
+
+.delPromo button {
+    width: 15px;
+    height: 15px;
+    background: url(./icons/remove.png) center / contain;
+    opacity: 0;
 }
 
 .delCat {
@@ -363,11 +376,12 @@ button:not(.newCategory button) {
 .previewImg::after {
     content: '';
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 10px;
-    height: 10px;
-    background-color: red;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: url(./icons/remove.png) center / contain;
 }
 
 .description {
@@ -446,7 +460,7 @@ button:not(.newCategory button) {
 }
 
 .search input {
-    width: 120px;
+    width: 150px;
     height: 23px;
     border-radius: 10px;
     border: none;

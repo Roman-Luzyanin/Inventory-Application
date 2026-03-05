@@ -37,6 +37,7 @@ homeRouter.post('/item', upload.single('image'), controllers.addItem);
 homeRouter.post('/update/category/:id', controllers.updateCategory);
 homeRouter.post('/update/subCategory/:id', upload.single('image'), controllers.updateSubCategory);
 homeRouter.post('/update/item/:id', upload.single('image'), controllers.updateItem);
+homeRouter.post('/update/depromote/:id', controllers.depromoteItem);
 
 homeRouter.post('/delete/category/:id', controllers.deleteCategory);
 homeRouter.post('/delete/subCategory/:id', controllers.deleteSubCategory);
