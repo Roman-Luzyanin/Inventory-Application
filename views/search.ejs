@@ -1,3 +1,21 @@
+<div class="changeSubCategory" >
+    <form  method="post" class="newCategory" id="changeSubCategoryForm" enctype="multipart/form-data">
+        <label for="subNameUpdate">New name</label>
+        <input type="text" name="name" id="subNameUpdate">
+
+        <label>Image:</label>
+        <div class="previewImg" onclick="removeImg()">
+            <img class="subPreviewSrc">
+        </div>
+        <input type="file" name="image" id="changeSubCategoryFile">
+
+        <input type="hidden" name="removeImg" class="removeImg">
+        <input type="hidden" name="parent_id" id="parent_id">
+        <button type="submit">update</button>
+        <button type="button" onclick="changeSubCategory()">cancel</button>
+    </form>          
+</div>
+
 <% if (searchedItems.length > 0) { %>
     <div class="items">
         <% searchedItems.forEach(item => { %>

@@ -197,6 +197,12 @@ button:not(.newCategory button) {
     align-items: center;
 }
 
+.addCategoryBtn {
+    width: 32px;
+    height: 32px;
+    background: url(./icons/add.png) center / contain;
+}
+
 .addSubCategoryBtn button,
 .addItemBtn button {
     width: 64px;
@@ -204,10 +210,10 @@ button:not(.newCategory button) {
     background: url(./icons/add.png) center / contain;
 }
 
-.addCategoryBtn {
-    width: 32px;
-    height: 32px;
-    background: url(./icons/add.png) center / contain;
+.addCategoryBtn:active,
+.addSubCategoryBtn button:active,
+.addItemBtn button:active {
+    transform: scale(0.95);
 }
 
 .subCategories,
