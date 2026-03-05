@@ -161,15 +161,28 @@
             <% } else { %>
                 <div class="breadcrums">
                     <a href="/">HOME</a>
+
+                    <form action="/" method="get" class="search">   
+                        <input type="text" name="searchedName" required placeholder="search...">
+                    </form>
                 </div>
                 
-                <div class="home">
-                    <% if (promo.length > 0) { %>
-                        <%- include('promo') %> 
-                    <% } else { %>
-                        <img src="<%= 'placeholder/home.png' %>" class="homeImage">
-                    <% } %>
-                </div>
+                <% if (searchedPromo.length > 0) { %>
+                    <%- include('search') %>
+                <% } else if (searchedPromo.length === 0 && searchQuery) { %>
+                    <div class="items">
+                        <a href="/">Back</a>
+                        <p class="noMatches">No matches found</p>   
+                    </div>
+                <% } else { %>  
+                    <div class="home">
+                        <% if (promo.length > 0) { %>
+                            <%- include('promo') %> 
+                        <% } else { %>
+                            <img src="<%= 'placeholder/home.png' %>" class="homeImage">
+                        <% } %>
+                    </div>
+                <% } %>    
             <% } %>
         </div>
     </div>

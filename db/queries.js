@@ -119,6 +119,11 @@ async function searchSubCategories(c_name, p_id) {
     return rows;
 }
 
+async function searchPromoItems(i_name) {
+    const { rows } = await pool.query('SELECT * FROM items WHERE name ILIKE $1 AND promote = TRUE', [`${i_name}%`]);
+    return rows;
+}
+
 module.exports = {
     getCategories,
     getSubCategories,
@@ -131,5 +136,6 @@ module.exports = {
     deleteCategory,
     deleteItem,
     searchItems,
-    searchSubCategories
+    searchSubCategories,
+    searchPromoItems
 }

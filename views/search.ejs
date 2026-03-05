@@ -65,4 +65,19 @@
             </div>
         <% }) %>
     </div>
+<% } else if(searchedPromo.length > 0) { %>
+    <div class="items">
+        <% searchedPromo.forEach(item => { %>
+            <div class="item">
+                <img src="<%= item.image_url || 'placeholder/image.png' %>" class="itemImage">
+
+                <form action="/" method="get" class="itemForm">
+                    <input type="hidden" name="categoryId" value="<%= item.root_id %>">
+                    <input type="hidden" name="subCategoryId" value="<%= item.category_id %>">
+                    <input type="hidden" name="itemId" value="<%= item.id %>">
+                    <button type="submit"><%= item.name %></button>
+                </form>
+            </div>
+        <% }) %>
+    </div>  
 <% } %>
