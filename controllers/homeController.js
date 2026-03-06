@@ -20,10 +20,12 @@ async function getHome(req, res) {
     const searchedSubCat = categoryId ? await db.searchSubCategories(req.query.searchedName, req.query.categoryId) : [];
     const searchedPromo = await db.searchPromoItems(req.query.searchedName);
 
+    const deleteCheck = req.query.deleteCheck;
+
     res.render('home', {categories, subCategories, items,
                         categoryId, subCategoryId, itemId,
                         category, subCategory, item, promo,
-                        searchQuery, searchedItems, searchedSubCat, searchedPromo});
+                        searchQuery, searchedItems, searchedSubCat, searchedPromo, deleteCheck});
 }
 
 async function addCategory(req, res) {
@@ -70,8 +72,14 @@ async function depromoteItem(req, res) {
 }
 
 async function deleteCategory(req, res) {
-    await db.deleteCategory(req.params.id);
-    res.redirect('/');
+    let deleteCheck = await db.deleteCategoryCheck(req.params.id);
+    if (deleteCheck.length > 0) {
+        deleteCheck = 'forbidden';
+    } else {
+        deleteCheck = '';
+        await db.deleteCategory(req.params.id);
+    }
+    res.redirect(`/?categoryId=${req.params.id}&deleteCheck=${deleteCheck}`);
 }
 
 async function deleteSubCategory(req, res) {

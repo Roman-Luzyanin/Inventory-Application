@@ -20,7 +20,7 @@
                 <div class="addCategory" >
                     <form action="/category" method="post" class="newCategory" id="addCategoryForm">
                         <label for="categoryName">New category</label>
-                        <input type="text" name="categoryName" id="categoryName">
+                        <input type="text" name="categoryName" id="categoryName" minlength="3" maxlength="15" required>
                         <button type="submit">Add category</button>
                         <button type="button" onclick="addNewCategory()">Cancel</button>
                     </form>
@@ -28,7 +28,7 @@
                 <div class="changeCategory" >
                     <form  method="post" class="newCategory" id="changeCategoryForm">
                         <label for="updateCategoryName">New name</label>
-                        <input type="text" name="name" id="updateCategoryName">
+                        <input type="text" name="name" id="updateCategoryName" minlength="3" maxlength="15" required>
                         <button type="submit">Apply</button>
                         <button type="button" onclick="changeCategory()">Cancel</button>
                     </form>          
@@ -50,6 +50,9 @@
                                     <button type="submit"></button>
                                 </form>
                             </div>
+                            <p class="deleteCheck <%= deleteCheck && category.id == categoryId ? 'err' : '' %>">
+                                Category is not empty!
+                            </p>
                         </div>
                         <% if (category.id == categoryId) { %>
                             <% subCategories.forEach(subCategory => { %>
@@ -103,7 +106,7 @@
                     <div class="addItem">
                         <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
                             <label for="itemName">New item:</label>
-                            <input type="text" name="itemName" id="itemName">
+                            <input type="text" name="itemName" id="itemName" minlength="3" maxlength="15" required>
                             <label for="description">Description:</label>
                             <textarea name="description" id="description"></textarea>
 
@@ -146,7 +149,7 @@
                     <div class="addSubCategory">
                         <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
                             <label for="subCategoryName">New category</label>
-                            <input type="text" name="subCategoryName" id="subCategoryName">
+                            <input type="text" name="subCategoryName" id="subCategoryName" minlength="3" maxlength="15" required>
                             <label>Image:</label>
                             <input type="file" name="image" id="subCategoryFile">
                             <input type="hidden" name="categoryId" value="<%= categoryId %>">

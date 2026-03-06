@@ -103,8 +103,19 @@ button:not(.newCategory button) {
     z-index: 10;
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     border-top: 1px solid rgba(0, 0, 0, 0.4);
-    margin: 15px 15px;
-    
+    margin: 20px 15px;
+}
+
+.deleteCheck {
+    display: none;
+    position: absolute;
+    top: -80%;
+    left: 10%;
+    color: red;
+}
+
+.err {
+    display: block;
 }
 
 .category:first-child {
