@@ -1,7 +1,7 @@
 <div class="changeItem" >
     <form action="/update/item/<%= item.id %>" method="post" class="newCategory" id="changeItemForm" enctype="multipart/form-data">
         <label for="itemNameUpdate">New name:</label>
-        <input type="text" name="itemNameUpdate" id="itemNameUpdate" value="<%= item.name %>" minlength="3" maxlength="15" required>
+        <input type="text" name="itemNameUpdate" id="itemNameUpdate" value="<%= item.name %>" minlength="3" maxlength="30" required>
         <label for="descriptionUpdate">Description:</label>
         <textarea name="descriptionUpdate" id="descriptionUpdate"><%= item.description %></textarea>
 

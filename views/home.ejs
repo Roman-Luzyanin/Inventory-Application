@@ -107,7 +107,7 @@
                     <div class="addItem">
                         <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
                             <label for="itemName">New item:</label>
-                            <input type="text" name="itemName" id="itemName" minlength="3" maxlength="15" required>
+                            <input type="text" name="itemName" id="itemName" minlength="3" maxlength="30" required>
                             <label for="description">Description:</label>
                             <textarea name="description" id="description"></textarea>
 
@@ -150,7 +150,7 @@
                     <div class="addSubCategory">
                         <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
                             <label for="subCategoryName">New category</label>
-                            <input type="text" name="subCategoryName" id="subCategoryName" minlength="3" maxlength="15" required>
+                            <input type="text" name="subCategoryName" id="subCategoryName" minlength="3" maxlength="20" required>
                             <label>Image:</label>
                             <input type="file" name="image" id="subCategoryFile">
                             <input type="hidden" name="categoryId" value="<%= categoryId %>">
