@@ -403,13 +403,14 @@ button:not(.newCategory button) {
     background: url(./icons/remove.png) center / contain;
 }
 
-.description {
-    display: flex;
-    column-gap: 40px;
-}
+/* .description {
+
+} */
 
 .description img {
-    width: 45%;
+    width: calc(50% - 20px);
+    float: left;
+    margin: 0 20px 20px 0;
 }
 
 #addSubCategoryForm {
