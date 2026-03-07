@@ -106,12 +106,20 @@ button:not(.newCategory button) {
     margin: 20px 15px;
 }
 
-.deleteCheck {
+.checkCat {
     display: none;
     position: absolute;
     top: -80%;
     left: 10%;
     color: red;
+}
+
+.sub {
+    top: 25%;
+    left: 0;
+    font-size: 14px;
+    text-align: center;
+    background-color: #E6ECF1;
 }
 
 .err {

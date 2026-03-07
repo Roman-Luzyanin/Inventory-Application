@@ -28,6 +28,7 @@
 
             <form action="/delete/subCategory/<%= subCategory.id %>" method="post" class="delSubCat">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                <input type="hidden" name="subCategoryId" value="<%= subCategory.id %>">
                 <button type="submit"></button>
             </form>
 
@@ -39,6 +40,10 @@
                 data-parent="<%= subCategory.parent_id %>"
                 data-url="<%= subCategory.image_url %>"
             ></button>
+
+            <p class="checkCat sub <%= deleteCheck && subCategory.id == deleteCheck ? 'err' : '' %>">
+                Category is not empty!
+            </p>
             
             <form action="/" method="get" class="subCategoryForm">
                 <input type="hidden" name="categoryId" value="<%= categoryId %>">

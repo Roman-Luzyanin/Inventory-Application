@@ -112,6 +112,10 @@ async function deleteCategoryCheck(c_id) {
     const { rows } = await pool.query('SELECT * FROM categories WHERE parent_id = $1', [c_id]);
     return rows;
 }
+async function deleteSubCategoryCheck(c_id) {
+    const { rows } = await pool.query('SELECT * FROM items WHERE category_id = $1', [c_id]);
+    return rows;
+}
 
 async function searchItems(i_name, c_id) {
     const { rows } = await pool.query('SELECT * FROM items WHERE name ILIKE $1 AND category_id = $2', [`${i_name}%`, c_id]);
@@ -141,6 +145,7 @@ module.exports = {
     deleteCategory,
     deleteItem,
     deleteCategoryCheck,
+    deleteSubCategoryCheck,
     searchItems,
     searchSubCategories,
     searchPromoItems

@@ -72,19 +72,25 @@ async function depromoteItem(req, res) {
 }
 
 async function deleteCategory(req, res) {
-    let deleteCheck = await db.deleteCategoryCheck(req.params.id);
-    if (deleteCheck.length > 0) {
-        deleteCheck = 'forbidden';
+    let checkCat = await db.deleteCategoryCheck(req.params.id);
+    if (checkCat.length > 0) {
+        checkCat = `${req.body.categoryId}`;
     } else {
-        deleteCheck = '';
+        checkCat = '';
         await db.deleteCategory(req.params.id);
     }
-    res.redirect(`/?categoryId=${req.params.id}&deleteCheck=${deleteCheck}`);
+    res.redirect(`/?categoryId=${req.params.id}&deleteCheck=${checkCat}`);
 }
 
 async function deleteSubCategory(req, res) {
-    await db.deleteCategory(req.params.id);
-    res.redirect(`/?categoryId=${req.body.categoryId}`);
+    let checkSubCat = await db.deleteSubCategoryCheck(req.params.id);
+    if (checkSubCat.length > 0) {
+        checkSubCat = `${req.body.subCategoryId}`;
+    } else {
+        checkSubCat = '';
+        await db.deleteCategory(req.params.id);
+    }
+    res.redirect(`/?categoryId=${req.body.categoryId}&deleteCheck=${checkSubCat}`);
 }
 
 async function deleteItem(req, res) {

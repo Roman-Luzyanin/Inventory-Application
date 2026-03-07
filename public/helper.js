@@ -205,3 +205,24 @@ function removeImg() {
     removeImg.value = 'delete';
     previewImg.style.display = 'none';
 }
+
+
+
+document.addEventListener('click', () => {
+    const checkCat = document.querySelectorAll('.checkCat');
+    checkCat.forEach(i => i.classList.remove('err'));
+}, {once: true});
+
+
+
+function deleteUrlQueryParam(paramName) {
+  const currentUrl = new URL(window.location.href);
+
+  currentUrl.searchParams.delete(paramName);
+  
+  window.history.replaceState(null, '', currentUrl.toString());
+}
+
+window.onload = function() {
+  deleteUrlQueryParam('deleteCheck'); 
+};

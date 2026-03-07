@@ -47,10 +47,11 @@
                                         data-id='<%= category.id %>' data-name='<%= category.name %>'></button>
                                 
                                 <form action="/delete/category/<%= category.id %>" method="post" class="delCat">
+                                    <input type="hidden" name="categoryId" value="<%= category.id %>">
                                     <button type="submit"></button>
                                 </form>
                             </div>
-                            <p class="deleteCheck <%= deleteCheck && category.id == categoryId ? 'err' : '' %>">
+                            <p class="checkCat <%= deleteCheck && category.id == deleteCheck ? 'err' : '' %>">
                                 Category is not empty!
                             </p>
                         </div>
