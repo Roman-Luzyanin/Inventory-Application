@@ -122,22 +122,28 @@
                 <% } else { %>
                     <div class="addItem">
                         <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
-                            <label for="itemName">New item:</label>
-                            <input type="text" name="itemName" id="itemName" minlength="3" maxlength="30" required>
-                            <label for="description">Description:</label>
-                            <textarea name="description" id="description"></textarea>
+                            <div>
+                                <label for="itemName">New item:</label>
+                                <input type="text" name="itemName" id="itemName" minlength="3" maxlength="30" required>
 
-                            <div class="placeAtHome">
-                                <label>Place at HOME:</label>
-                                <input type="checkbox" name="isPromote" id="isPromote">
+                                <div class="placeAtHome">
+                                    <label>Place at HOME:</label>
+                                    <input type="checkbox" name="isPromote" id="isPromote">
+                                </div>
+                                
+                                <label>Image:</label>
+                                <input type="file" name="image" id="itemFile">
+                                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+                                <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+                                <div>
+                                    <button type="submit">Add item</button>
+                                    <button type="button" onclick="addNewItem()">Cancel</button>
+                                </div>
                             </div>
-                            
-                            <label>Image:</label>
-                            <input type="file" name="image" id="itemFile">
-                            <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                            <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-                            <button type="submit">Add item</button>
-                            <button type="button" onclick="addNewItem()">Cancel</button>
+                            <div>
+                                <label for="description">Description:</label>
+                                <textarea name="description" id="description"></textarea>
+                            </div>
                         </form>
                     </div>
 

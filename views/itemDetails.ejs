@@ -1,28 +1,33 @@
 <div class="changeItem" >
     <form action="/update/item/<%= item.id %>" method="post" class="newCategory" id="changeItemForm" enctype="multipart/form-data">
-        <label for="itemNameUpdate">New name:</label>
-        <input type="text" name="itemNameUpdate" id="itemNameUpdate" value="<%= item.name %>" minlength="3" maxlength="30" required>
-        <label for="descriptionUpdate">Description:</label>
-        <textarea name="descriptionUpdate" id="descriptionUpdate"><%= item.description %></textarea>
-
-        <div class="placeAtHome">
-            <label>Place at HOME:</label>
-            <input type="checkbox" name="isPromoteUpt" id="isPromoteUpt" <%= item.promote ? 'checked' : '' %> />
-        </div>
-
-        <label>Image:</label>
-        <div class="previewImg" onclick="removeImg()">
-            <img src="<%= item.image_url %>">
-        </div>
-        <input type="file" name="image" id="updateItemFile">
-
-        <input type="hidden" name="removeImg" class="removeImg">
-        <input type="hidden" name="categoryId" value="<%= categoryId %>">
-        <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
-        <input type="hidden" name="itemId" value="<%= itemId %>">
         <div>
-            <button type="submit">apply</button>
-            <button type="button" onclick="changeItem()">cancel</button>
+            <label for="itemNameUpdate">New name:</label>
+            <input type="text" name="itemNameUpdate" id="itemNameUpdate" value="<%= item.name %>" minlength="3" maxlength="30" required>
+            
+            <div class="placeAtHome">
+                <label>Place at HOME:</label>
+                <input type="checkbox" name="isPromoteUpt" id="isPromoteUpt" <%= item.promote ? 'checked' : '' %> />
+            </div>
+
+            <label>Image:</label>
+            <div class="previewImg" onclick="removeImg()">
+                <img src="<%= item.image_url %>">
+            </div>
+            <input type="file" name="image" id="updateItemFile">
+
+            <input type="hidden" name="removeImg" class="removeImg">
+            <input type="hidden" name="categoryId" value="<%= categoryId %>">
+            <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
+            <input type="hidden" name="itemId" value="<%= itemId %>">
+            
+            <div>
+                <button type="submit">apply</button>
+                <button type="button" onclick="changeItem()">cancel</button>
+            </div>
+        </div>
+        <div>
+            <label for="descriptionUpdate">Description:</label>
+            <textarea name="descriptionUpdate" id="descriptionUpdate"><%= item.description %></textarea>
         </div>
     </form>          
 </div>
