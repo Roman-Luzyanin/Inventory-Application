@@ -40,7 +40,7 @@
                                 <form action="/update/position" method="post" class="catUp">
                                     <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
                                     <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) - 1] %>">
-                                    <button type="submit">+</button>
+                                    <button type="submit"></button>
                                 </form>
                             <% } %>
 
@@ -48,7 +48,7 @@
                                 <form action="/update/position" method="post" class="catDown">
                                     <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
                                     <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) + 1] %>">
-                                    <button type="submit">-</button>
+                                    <button type="submit"></button>
                                 </form>
                             <% } %>
 

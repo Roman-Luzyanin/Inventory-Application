@@ -108,14 +108,42 @@ button:not(.newCategory button) {
 
 .catUp {
     position: absolute;
-    left: -8px;
-    top: -5px;
+    left: -6px;
+    top: -6px;
+    width: 10px;
+    height: 12px;
+    display: none;
+}
+
+.catUp button {
+    width: 10px;
+    height: 12px;
+    background: url(./icons/up_arrow.png) top / contain;
 }
 
 .catDown {
     position: absolute;
     left: -6px;
-    top: 9px;
+    top: 10px;
+    width: 10px;
+    height: 12px;
+    display: none;
+}
+
+.catDown button {
+    width: 10px;
+    height: 12px;
+    background: url(./icons/up_down.png) bottom / contain;
+}
+
+.catUp button:hover,
+.catDown button:hover {
+    filter: brightness(80%);
+}
+
+.category:hover .catUp,
+.category:hover .catDown {
+    display: block;
 }
 
 .checkCat {
