@@ -36,10 +36,26 @@
                 <div class="categories">
                     <% categories.forEach(category => { %>
                         <div class="category">
-                            <form action="/" method="get">
+                            <% if (positions.indexOf(category.position) > 0) { %>
+                                <form action="/update/position" method="post" class="catUp">
+                                    <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
+                                    <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) - 1] %>">
+                                    <button type="submit">+</button>
+                                </form>
+                            <% } %>
+
+                            <% if (positions.indexOf(category.position) < positions.length - 1) { %>
+                                <form action="/update/position" method="post" class="catDown">
+                                    <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
+                                    <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) + 1] %>">
+                                    <button type="submit">-</button>
+                                </form>
+                            <% } %>
+
+                            <form action="/" method="get">                              
                                 <input type="hidden" name="categoryId" 
                                     value="<%= currentPath == category.id ? null : category.id %>">       
-                                <button type="submit" class="<%= category.id == categoryId ? 'active' : '' %>"><%= category.name %></button>
+                                <button type="submit" class="<%= category.id == categoryId ? 'active' : '' %>"><%= category.name %></button>                          
                             </form>
                             
                             <div style="display: flex; column-gap: 10px;">

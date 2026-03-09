@@ -6,6 +6,7 @@ async function getHome(req, res) {
     const itemId = req.query.itemId || null;
 
     const categories = await db.getCategories();
+    const positions = await db.getPositions();
     const subCategories =  categoryId ? await db.getSubCategories(categoryId) : [];
     const items =  subCategoryId ? await db.getItems(subCategoryId) : [];
 
@@ -22,7 +23,7 @@ async function getHome(req, res) {
 
     const deleteCheck = req.query.deleteCheck;
 
-    res.render('home', {categories, subCategories, items,
+    res.render('home', {categories, subCategories, items, positions,
                         categoryId, subCategoryId, itemId,
                         category, subCategory, item, promo,
                         searchQuery, searchedItems, searchedSubCat, searchedPromo, deleteCheck});
@@ -44,6 +45,11 @@ async function addItem(req, res) {
     const isPromote = req.body.isPromote ? true : false;
     await db.addItem(req.body.itemName, req.body.categoryId, req.body.subCategoryId, imagePath, req.body.description, isPromote);
     res.redirect(`/?categoryId=${req.body.categoryId}&subCategoryId=${req.body.subCategoryId}`)
+}
+
+async function updateCategoryPosition(req, res) {
+    await db.updateCategoryPosition(req.body.val_1, req.body.val_2);
+    res.redirect('/');
 }
 
 async function updateCategory(req, res) {
@@ -103,6 +109,7 @@ module.exports = {
     addCategory,
     addSubCategory,
     addItem,
+    updateCategoryPosition,
     updateCategory,
     updateSubCategory,
     updateItem,

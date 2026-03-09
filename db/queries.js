@@ -7,9 +7,16 @@ const pool = new Pool({
 })
 
 async function getCategories() {
-    const { rows } = await pool.query('SELECT * FROM categories WHERE parent_id IS NULL ORDER BY id');
+    const { rows } = await pool.query('SELECT * FROM categories WHERE parent_id IS NULL ORDER BY position');
     // console.log(rows)
     return rows;
+}
+
+async function getPositions() {
+    const { rows } = await pool.query('SELECT * FROM categories WHERE parent_id IS NULL ORDER BY position');
+    const positions = rows.map(i => i.position);
+    // console.log(positions)
+    return positions;
 }
 
 async function getSubCategories(s_id) {
@@ -36,6 +43,10 @@ async function addCategory(c_name, p_id, c_img) {
 
 async function addItem(i_name, r_id, c_id, i_img, i_desc, i_prom) {
     await pool.query('INSERT INTO items (name, root_id, category_id, image_url, description, promote) VALUES ($1, $2, $3, $4, $5, $6)', [i_name, r_id, c_id, i_img, i_desc, i_prom]);
+}
+
+async function updateCategoryPosition(val_1, val_2) {
+    await pool.query('UPDATE categories SET position = CASE WHEN position = $1 THEN $2 WHEN position = $2 THEN $1 END WHERE position IN ($1, $2)', [val_1, val_2]);
 }
 
 async function updateCategory(c_id, c_name, c_img, i_del) {
@@ -135,11 +146,13 @@ async function searchPromoItems(i_name) {
 
 module.exports = {
     getCategories,
+    getPositions,
     getSubCategories,
     getItems,
     getPromoItems,
     addCategory,
     addItem,
+    updateCategoryPosition,
     updateCategory,
     updateItem,
     deleteCategory,
