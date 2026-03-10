@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const password = process.env.PASSWORD;
 
 const SQL = `
     CREATE TABLE IF NOT EXISTS categories(
@@ -24,7 +25,7 @@ const SQL = `
 
 async function seed() {
     const client = new Client({
-        connectionString: `postgresql://roman:grtb342fs@localhost:5432/inventory_app`
+        connectionString: `postgresql://roman:${password}@localhost:5432/inventory_app`
     })
 
     await client.connect();

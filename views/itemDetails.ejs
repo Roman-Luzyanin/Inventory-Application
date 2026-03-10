@@ -33,14 +33,21 @@
 </div>
 
 <div class="itemDetails">
-    <button 
-        type="button"  
-        class="changeItemDetailsBtn"
-        data-url="<%= item.image_url %>" 
-        data-name="<%= item.name %>"
-        data-description="<%= item.description %>"
-        data-promote="<%= item.promote ? 'true' : '' %>"
-    ></button>
+    <button class="changeItemDetailsBtn" onclick="itemPasswordCheck()"></button>
+
+    <div class="itemPassword">
+        <label for="password">Password:</label>
+        <input type="text" name="password" id="password">
+        <button 
+            type="button"  
+            class="changeItemDetails"
+            data-url="<%= item.image_url %>" 
+            data-name="<%= item.name %>"
+            data-description="<%= item.description %>"
+            data-promote="<%= item.promote ? 'true' : '' %>"
+        >Ok</button>
+        <button onclick="itemPasswordCheck()">Cancel</button>
+    </div>
 
     <h1><%= item.name %></h1>
  

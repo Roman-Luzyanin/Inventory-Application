@@ -1,9 +1,10 @@
 const { Pool} = require('pg');
 const fs = require('fs');
 const path = require('path');
+const password = process.env.PASSWORD;
 
 const pool = new Pool({
-    connectionString: `postgresql://roman:grtb342fs@localhost:5432/inventory_app`
+    connectionString: `postgresql://roman:${password}@localhost:5432/inventory_app`
 })
 
 async function getCategories() {

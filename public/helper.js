@@ -1,3 +1,5 @@
+const password = 'roman';
+
 // --------------------Add Category-------------------------------------
 
 const addCategory = document.querySelector('.addCategory');
@@ -161,6 +163,14 @@ function changeSubCategory(id, name, parent_id, url) {
 const updateItem = document.querySelector('.changeItem');
 const changeItemForm = document.getElementById('changeItemForm');
 
+function itemPasswordCheck() {
+    const itemPassword = document.querySelector('.itemPassword');
+    const input = document.querySelector('.itemPassword input');
+    input.value = '';
+    input.placeholder = '';
+    itemPassword.classList.toggle('show');
+}
+
 changeItemForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -172,9 +182,16 @@ changeItemForm?.addEventListener('submit', (e) => {
 })
 
 document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('changeItemDetailsBtn')) {
-        const btn = e.target;
-        changeItem(btn.dataset.url, btn.dataset.name, btn.dataset.description, btn.dataset.promote);
+    if (e.target.classList.contains('changeItemDetails')) {
+        const input = document.querySelector('.itemPassword input');
+        if (input.value === password) {
+            itemPasswordCheck();
+            const btn = e.target;
+            changeItem(btn.dataset.url, btn.dataset.name, btn.dataset.description, btn.dataset.promote);
+        } else {
+            input.value = '';
+            input.placeholder = 'Denied!!!'
+        }
     }
 });
 
