@@ -1,4 +1,4 @@
-const password = 'roman';
+const password = '123';
 
 // --------------------Add Category-------------------------------------
 
@@ -83,6 +83,28 @@ function addNewItem() {
 
 const updateCategory = document.querySelector('.changeCategory');
 const changeCategoryForm = document.getElementById('changeCategoryForm');
+const catInput = document.querySelector('.catPassword input');
+
+function catPasswordCheck(idx) {
+    const catPassword = document.querySelector('.catPassword');
+    const changeCategoryDetails = document.querySelector('.changeCategoryDetails');
+    const changeCategoryBtns = document.querySelectorAll('.changeCategoryBtn'); 
+    const btn = changeCategoryBtns[idx];
+
+    if (btn) {
+        changeCategoryDetails.setAttribute('data-id', btn.dataset.id);
+        changeCategoryDetails.setAttribute('data-name', btn.dataset.name);
+    }
+
+    catInput.value = '';
+    catInput.placeholder = '';
+    catPassword.classList.toggle('show');
+    catInput.focus();
+
+    catInput.addEventListener('keydown', function x(e) {
+        if (e.key === 'Enter') changeCategoryDetails.click();
+    })
+}
 
 changeCategoryForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -95,9 +117,15 @@ changeCategoryForm.addEventListener('submit', (e) => {
 })
 
 document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('changeCategoryBtn')) {
+    if (e.target.classList.contains('changeCategoryDetails')) {
         const btn = e.target;
-        changeCategory(btn.dataset.id, btn.dataset.name);
+        if (catInput.value === password) {
+            catPasswordCheck();
+            changeCategory(btn.dataset.id, btn.dataset.name);
+        } else {
+            catInput.value = '';
+            catInput.placeholder = 'Denied!!!'
+        }
     }
 });
 
@@ -120,6 +148,23 @@ function changeCategory(id, name) {
 
 const updateSubCategory = document.querySelector('.changeSubCategory');
 const changeSubCategoryForm = document.getElementById('changeSubCategoryForm');
+const subCatInputs = document.querySelectorAll('.subCatPassword input');
+
+function subCatPasswordCheck(idx, open) {
+    const items = document.querySelectorAll('.subCatPassword');
+    const subCatPassword = items[idx];
+    const okBtns = document.querySelectorAll('.changeSubCategoryDetails');
+
+    open && items.forEach(i => i.classList.remove('show'));
+    subCatInputs[idx].value = '';
+    subCatInputs[idx].placeholder = '';
+    subCatPassword.classList.toggle('show');
+    subCatInputs[idx].focus();
+
+    subCatInputs[idx].addEventListener('keydown', function x(e) {
+        if (e.key === 'Enter') okBtns[idx].click();
+    })
+}
 
 changeSubCategoryForm?.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -132,9 +177,15 @@ changeSubCategoryForm?.addEventListener('submit', (e) => {
 })
 
 document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('changeSubCategoryBtn')) {
+    if (e.target.classList.contains('changeSubCategoryDetails')) {
         const btn = e.target;
-        changeSubCategory(btn.dataset.id, btn.dataset.name, btn.dataset.parent, btn.dataset.url);
+        if (subCatInputs[btn.dataset.idx].value === password) {
+            subCatPasswordCheck(btn.dataset.idx);   
+            changeSubCategory(btn.dataset.id, btn.dataset.name, btn.dataset.parent, btn.dataset.url);
+        } else {
+            subCatInputs[btn.dataset.idx].value = '';
+            subCatInputs[btn.dataset.idx].placeholder = 'Denied!!!'
+        }
     }
 });
 
@@ -162,13 +213,20 @@ function changeSubCategory(id, name, parent_id, url) {
 
 const updateItem = document.querySelector('.changeItem');
 const changeItemForm = document.getElementById('changeItemForm');
+const itemInput = document.querySelector('.itemPassword input');
 
 function itemPasswordCheck() {
     const itemPassword = document.querySelector('.itemPassword');
-    const input = document.querySelector('.itemPassword input');
-    input.value = '';
-    input.placeholder = '';
+    const changeItemDetails = document.querySelector('.changeItemDetails');
+
+    itemInput.value = '';
+    itemInput.placeholder = '';
     itemPassword.classList.toggle('show');
+    itemInput.focus();
+
+    itemInput.addEventListener('keydown', function x (e) {
+        if (e.key === 'Enter') changeItemDetails.click();
+    })
 }
 
 changeItemForm?.addEventListener('submit', (e) => {
@@ -183,14 +241,13 @@ changeItemForm?.addEventListener('submit', (e) => {
 
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('changeItemDetails')) {
-        const input = document.querySelector('.itemPassword input');
-        if (input.value === password) {
+        const btn = e.target;
+        if (itemInput.value === password) {
             itemPasswordCheck();
-            const btn = e.target;
             changeItem(btn.dataset.url, btn.dataset.name, btn.dataset.description, btn.dataset.promote);
         } else {
-            input.value = '';
-            input.placeholder = 'Denied!!!'
+            itemInput.value = '';
+            itemInput.placeholder = 'Denied!!!'
         }
     }
 });

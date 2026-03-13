@@ -1,18 +1,18 @@
 <div class="changeSubCategory" >
     <form  method="post" class="newCategory" id="changeSubCategoryForm" enctype="multipart/form-data">
         <label for="subNameUpdate">New name</label>
-        <input type="text" name="name" id="subNameUpdate" minlength="3" maxlength="20" required>
+        <input type="text" name="name" id="subNameUpdate" minlength="3" maxlength="20" required  tabindex="-1">
 
         <label>Image:</label>
         <div class="previewImg" onclick="removeImg()">
             <img class="subPreviewSrc">
         </div>
-        <input type="file" name="image" id="changeSubCategoryFile">
+        <input type="file" name="image" id="changeSubCategoryFile"  tabindex="-1">
 
         <input type="hidden" name="removeImg" class="removeImg">
         <input type="hidden" name="parent_id" id="parent_id">
-        <button type="submit">update</button>
-        <button type="button" onclick="changeSubCategory()">cancel</button>
+        <button type="submit"  tabindex="-1">update</button>
+        <button type="button" onclick="changeSubCategory()"  tabindex="-1">cancel</button>
     </form>          
 </div>
 
@@ -22,7 +22,7 @@
             <button type="button" onclick="addNewSubCategory()"></button>
         </div>
     </div>
-    <% subCategories.forEach(subCategory => { %>
+    <% subCategories.forEach((subCategory, idx) => { %>
         <div class="subCategoryRight">
             <img src="<%= subCategory.image_url || 'placeholder/image.png' %>" class="subImage">
 
@@ -32,14 +32,22 @@
                 <button type="submit"></button>
             </form>
 
-            <button 
-                type="button"
-                class="changeSubCategoryBtn"
-                data-id="<%= subCategory.id %>"
-                data-name="<%= subCategory.name %>"
-                data-parent="<%= subCategory.parent_id %>"
-                data-url="<%= subCategory.image_url %>"
-            ></button>
+            <button class="changeSubCategoryBtn" onclick="subCatPasswordCheck('<%= idx %>', true)"></button>
+
+            <div class="subCatPassword">
+                <label >Password:</label>
+                <input type="text" >
+                <button 
+                    type="button"
+                    class="changeSubCategoryDetails"
+                    data-idx="<%= idx %>"
+                    data-id="<%= subCategory.id %>"
+                    data-name="<%= subCategory.name %>"
+                    data-parent="<%= subCategory.parent_id %>"
+                    data-url="<%= subCategory.image_url %>"
+                >Ok</button>
+                <button onclick="subCatPasswordCheck('<%= idx %>')">Cancel</button>
+            </div>
 
             <p class="checkCat sub <%= deleteCheck && subCategory.id == deleteCheck ? 'err' : '' %>">
                 Category is not empty!

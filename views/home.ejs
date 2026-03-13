@@ -18,29 +18,38 @@
 
             <div class="panelBody">
                 <div class="addCategory" >
-                    <form action="/category" method="post" class="newCategory" id="addCategoryForm">
-                        <label for="categoryName">New category</label>
-                        <input type="text" name="categoryName" id="categoryName" minlength="3" maxlength="15" required>
-                        <button type="submit">Add category</button>
-                        <button type="button" onclick="addNewCategory()">Cancel</button>
+                    <form action="/category" method="post" class="newCategory" id="addCategoryForm" >
+                        <label for="categoryName" >New category</label>
+                        <input type="text" name="categoryName" id="categoryName" minlength="3" maxlength="15" required tabindex="-1">
+                        <button type="submit" tabindex="-1">Add category</button>
+                        <button type="button" onclick="addNewCategory()" tabindex="-1">Cancel</button>
                     </form>
                 </div>
+
                 <div class="changeCategory" >
-                    <form  method="post" class="newCategory" id="changeCategoryForm">
+                    <form  method="post" class="newCategory" id="changeCategoryForm" >
                         <label for="updateCategoryName">New name</label>
-                        <input type="text" name="name" id="updateCategoryName" minlength="3" maxlength="15" required>
-                        <button type="submit">Apply</button>
-                        <button type="button" onclick="changeCategory()">Cancel</button>
+                        <input type="text" name="name" id="updateCategoryName" minlength="3" maxlength="15" required tabindex="-1">
+                        <button type="submit" tabindex="-1">Apply</button>
+                        <button type="button" onclick="changeCategory()" tabindex="-1">Cancel</button>
                     </form>          
                 </div>
+
+                <div class="catPassword">
+                    <label >Password:</label>
+                    <input type="text" >
+                    <button class="changeCategoryDetails" type="button">Ok</button> 
+                    <button onclick="catPasswordCheck()">Cancel</button>
+                </div>
+
                 <div class="categories">
-                    <% categories.forEach(category => { %>
+                    <% categories.forEach((category, idx) => { %>
                         <div class="category">
                             <% if (positions.indexOf(category.position) > 0) { %>
                                 <form action="/update/position" method="post" class="catUp">
                                     <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
                                     <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) - 1] %>">
-                                    <button type="submit"></button>
+                                    <button type="submit" tabindex="-1"></button>
                                 </form>
                             <% } %>
 
@@ -48,7 +57,7 @@
                                 <form action="/update/position" method="post" class="catDown">
                                     <input type="hidden" name="val_1" value="<%= positions[positions.indexOf(category.position)] %>">
                                     <input type="hidden" name="val_2" value="<%= positions[positions.indexOf(category.position) + 1] %>">
-                                    <button type="submit"></button>
+                                    <button type="submit" tabindex="-1"></button>
                                 </form>
                             <% } %>
 
@@ -60,13 +69,15 @@
                             
                             <div style="display: flex; column-gap: 10px;">
                                 <button class="changeCategoryBtn" type="button"
-                                        data-id='<%= category.id %>' data-name='<%= category.name %>'></button>
+                                    data-id='<%= category.id %>' data-name='<%= category.name %>'
+                                        onclick="catPasswordCheck('<%= idx %>')"></button>
                                 
                                 <form action="/delete/category/<%= category.id %>" method="post" class="delCat">
                                     <input type="hidden" name="categoryId" value="<%= category.id %>">
                                     <button type="submit"></button>
                                 </form>
                             </div>
+
                             <p class="checkCat <%= deleteCheck && category.id == deleteCheck ? 'err' : '' %>">
                                 Category is not empty!
                             </p>
@@ -124,25 +135,25 @@
                         <form action="/item" method="post" class="newCategory" id="addItemForm" enctype="multipart/form-data">
                             <div>
                                 <label for="itemName">New item:</label>
-                                <input type="text" name="itemName" id="itemName" minlength="3" maxlength="30" required>
+                                <input type="text" name="itemName" id="itemName" minlength="3" maxlength="30" required  tabindex="-1">
 
                                 <div class="placeAtHome">
                                     <label>Place at HOME:</label>
-                                    <input type="checkbox" name="isPromote" id="isPromote">
+                                    <input type="checkbox" name="isPromote" id="isPromote"  tabindex="-1">
                                 </div>
                                 
                                 <label>Image:</label>
-                                <input type="file" name="image" id="itemFile">
+                                <input type="file" name="image" id="itemFile"  tabindex="-1">
                                 <input type="hidden" name="categoryId" value="<%= categoryId %>">
                                 <input type="hidden" name="subCategoryId" value="<%= subCategoryId %>">
                                 <div>
-                                    <button type="submit">Add item</button>
-                                    <button type="button" onclick="addNewItem()">Cancel</button>
+                                    <button type="submit"  tabindex="-1">Add item</button>
+                                    <button type="button" onclick="addNewItem()"  tabindex="-1">Cancel</button>
                                 </div>
                             </div>
                             <div>
                                 <label for="description">Description:</label>
-                                <textarea name="description" id="description"></textarea>
+                                <textarea name="description" id="description"  tabindex="-1"></textarea>
                             </div>
                         </form>
                     </div>
@@ -172,12 +183,12 @@
                     <div class="addSubCategory">
                         <form action="/subCategory" method="post" class="newCategory" id="addSubCategoryForm" enctype="multipart/form-data">
                             <label for="subCategoryName">New category</label>
-                            <input type="text" name="subCategoryName" id="subCategoryName" minlength="3" maxlength="20" required>
+                            <input type="text" name="subCategoryName" id="subCategoryName" minlength="3" maxlength="20" required  tabindex="-1">
                             <label>Image:</label>
-                            <input type="file" name="image" id="subCategoryFile">
+                            <input type="file" name="image" id="subCategoryFile"  tabindex="-1">
                             <input type="hidden" name="categoryId" value="<%= categoryId %>">
-                            <button type="submit">Add category</button>
-                            <button type="button" onclick="addNewSubCategory()">Cancel</button>
+                            <button type="submit"  tabindex="-1">Add category</button>
+                            <button type="button" onclick="addNewSubCategory()"  tabindex="-1">Cancel</button>
                         </form>
                     </div>
                     
